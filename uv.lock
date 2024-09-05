@@ -2890,12 +2890,6 @@ wheels = [
 ]
 
 [[package]]
-name = "netifaces"
-version = "0.11.0"
-source = { registry = "https://pypi.org/simple" }
-sdist = { url = "https://files.pythonhosted.org/packages/a6/91/86a6eac449ddfae239e93ffc1918cf33fd9bab35c04d1e963b311e347a73/netifaces-0.11.0.tar.gz", hash = "sha256:043a79146eb2907edf439899f262b3dfe41717d34124298ed281139a8b93ca32", size = 30106 }
-
-[[package]]
 name = "networkx"
 version = "3.3"
 source = { registry = "https://pypi.org/simple" }
@@ -3953,7 +3947,7 @@ wheels = [
 
 [[package]]
 name = "pythoncharmers-meta"
-version = "0.1.1"
+version = "0.2.0"
 source = { editable = "." }
 dependencies = [
     { name = "black" },
@@ -4021,7 +4015,6 @@ ml = [
 ]
 net = [
     { name = "cryptography" },
-    { name = "netifaces" },
     { name = "networkx" },
     { name = "pandas" },
     { name = "polars" },
@@ -4048,7 +4041,6 @@ scieng = [
     { name = "pint" },
     { name = "plotly" },
     { name = "pyod" },
-    { name = "rpy2" },
     { name = "scikit-image" },
     { name = "scipy" },
     { name = "seaborn" },
@@ -4108,7 +4100,6 @@ requires-dist = [
     { name = "memory-profiler", specifier = ">=0.61.0" },
     { name = "mypy", specifier = ">=1.11.2" },
     { name = "netcdf4", marker = "extra == 'gis'", specifier = ">=1.7.1.post2" },
-    { name = "netifaces", marker = "extra == 'net'", specifier = ">=0.11.0" },
     { name = "networkx", marker = "extra == 'gis'", specifier = ">=3.3" },
     { name = "networkx", marker = "extra == 'net'", specifier = ">=3.3" },
     { name = "networkx", marker = "extra == 'scieng'", specifier = ">=3.3" },
@@ -4137,7 +4128,6 @@ requires-dist = [
     { name = "requests", specifier = ">=2.32.3" },
     { name = "requests", marker = "extra == 'net'", specifier = ">=2.32.3" },
     { name = "rioxarray", marker = "extra == 'gis'", specifier = ">=0.17.0" },
-    { name = "rpy2", marker = "extra == 'scieng'", specifier = ">=3.5.16" },
     { name = "schedule", specifier = ">=1.2.2" },
     { name = "schedule", marker = "extra == 'net'", specifier = ">=1.2.2" },
     { name = "scikit-image", marker = "extra == 'gis'", specifier = ">=0.24.0" },
@@ -4586,22 +4576,6 @@ wheels = [
     { url = "https://files.pythonhosted.org/packages/01/9e/d68fba289625b5d3c9d1925825d7da716fbf812bda2133ac409021d5db13/rpds_py-0.20.0-pp310-pypy310_pp73-musllinux_1_2_i686.whl", hash = "sha256:dcedf0b42bcb4cfff4101d7771a10532415a6106062f005ab97d1d0ab5681c60", size = 548558 },
     { url = "https://files.pythonhosted.org/packages/bf/d6/4b2fad4898154365f0f2bd72ffd190349274a4c1d6a6f94f02a83bb2b8f1/rpds_py-0.20.0-pp310-pypy310_pp73-musllinux_1_2_x86_64.whl", hash = "sha256:39ed0d010457a78f54090fafb5d108501b5aa5604cc22408fc1c0c77eac14344", size = 525753 },
     { url = "https://files.pythonhosted.org/packages/d2/ea/6f121d1802f3adae1981aea4209ea66f9d3c7f2f6d6b85ef4f13a61d17ef/rpds_py-0.20.0-pp310-pypy310_pp73-win_amd64.whl", hash = "sha256:bb273176be34a746bdac0b0d7e4e2c467323d13640b736c4c477881a3220a989", size = 213529 },
-]
-
-[[package]]
-name = "rpy2"
-version = "3.5.16"
-source = { registry = "https://pypi.org/simple" }
-dependencies = [
-    { name = "cffi" },
-    { name = "jinja2" },
-    { name = "packaging", marker = "platform_system == 'Windows'" },
-    { name = "tzlocal" },
-]
-sdist = { url = "https://files.pythonhosted.org/packages/20/4a/2c7a3e08c4db3eb6c5fd050815b11947073997d0a521cd83c7dec1946d2e/rpy2-3.5.16.tar.gz", hash = "sha256:837e2f74583658a5c4c339761a73f9434f33ef9ced3e30c64da7562165c2801b", size = 220028 }
-wheels = [
-    { url = "https://files.pythonhosted.org/packages/df/c8/b5c570ae8804b02bd771490ab62566ad41662e17134ebb9d13a36aa880a4/rpy2-3.5.16-cp310-cp310-macosx_11_0_x86_64.whl", hash = "sha256:c748fc74ba01a51f6aca0a5f9e7bf637cd09413ffa031dd79b49b7a9fe97770b", size = 260831 },
-    { url = "https://files.pythonhosted.org/packages/16/21/1802c3e09cf3bcc850d5c439a21aa2b5a004ba3d6f61789d42db6de05364/rpy2-3.5.16-cp311-cp311-macosx_10_9_universal2.whl", hash = "sha256:f076b34bd79f62ae583e75acc1b305ba73a6639ea5c9a44dc53896709ccd8ba0", size = 299937 },
 ]
 
 [[package]]
@@ -5531,18 +5505,6 @@ wheels = [
 ]
 
 [[package]]
-name = "tzlocal"
-version = "5.2"
-source = { registry = "https://pypi.org/simple" }
-dependencies = [
-    { name = "tzdata", marker = "platform_system == 'Windows'" },
-]
-sdist = { url = "https://files.pythonhosted.org/packages/04/d3/c19d65ae67636fe63953b20c2e4a8ced4497ea232c43ff8d01db16de8dc0/tzlocal-5.2.tar.gz", hash = "sha256:8d399205578f1a9342816409cc1e46a93ebd5755e39ea2d85334bea911bf0e6e", size = 30201 }
-wheels = [
-    { url = "https://files.pythonhosted.org/packages/97/3f/c4c51c55ff8487f2e6d0e618dba917e3c3ee2caae6cf0fbb59c9b1876f2e/tzlocal-5.2-py3-none-any.whl", hash = "sha256:49816ef2fe65ea8ac19d19aa7a1ae0551c834303d5014c6d5a62e4cbda8047b8", size = 17859 },
-]
-
-[[package]]
 name = "uc-micro-py"
 version = "1.0.3"
 source = { registry = "https://pypi.org/simple" }
@@ -5575,20 +5537,6 @@ version = "4.0.2"
 source = { registry = "https://pypi.org/simple" }
 sdist = { url = "https://files.pythonhosted.org/packages/4f/38/764baaa25eb5e35c9a043d4c4588f9836edfe52a708950f4b6d5f714fd42/watchdog-4.0.2.tar.gz", hash = "sha256:b4dfbb6c49221be4535623ea4474a4d6ee0a9cef4a80b20c28db4d858b64e270", size = 126587 }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/46/b0/219893d41c16d74d0793363bf86df07d50357b81f64bba4cb94fe76e7af4/watchdog-4.0.2-cp310-cp310-macosx_10_9_universal2.whl", hash = "sha256:ede7f010f2239b97cc79e6cb3c249e72962404ae3865860855d5cbe708b0fd22", size = 100257 },
-    { url = "https://files.pythonhosted.org/packages/6d/c6/8e90c65693e87d98310b2e1e5fd7e313266990853b489e85ce8396cc26e3/watchdog-4.0.2-cp310-cp310-macosx_10_9_x86_64.whl", hash = "sha256:a2cffa171445b0efa0726c561eca9a27d00a1f2b83846dbd5a4f639c4f8ca8e1", size = 92249 },
-    { url = "https://files.pythonhosted.org/packages/6f/cd/2e306756364a934532ff8388d90eb2dc8bb21fe575cd2b33d791ce05a02f/watchdog-4.0.2-cp310-cp310-macosx_11_0_arm64.whl", hash = "sha256:c50f148b31b03fbadd6d0b5980e38b558046b127dc483e5e4505fcef250f9503", size = 92888 },
-    { url = "https://files.pythonhosted.org/packages/de/78/027ad372d62f97642349a16015394a7680530460b1c70c368c506cb60c09/watchdog-4.0.2-cp311-cp311-macosx_10_9_universal2.whl", hash = "sha256:7c7d4bf585ad501c5f6c980e7be9c4f15604c7cc150e942d82083b31a7548930", size = 100256 },
-    { url = "https://files.pythonhosted.org/packages/59/a9/412b808568c1814d693b4ff1cec0055dc791780b9dc947807978fab86bc1/watchdog-4.0.2-cp311-cp311-macosx_10_9_x86_64.whl", hash = "sha256:914285126ad0b6eb2258bbbcb7b288d9dfd655ae88fa28945be05a7b475a800b", size = 92252 },
-    { url = "https://files.pythonhosted.org/packages/04/57/179d76076cff264982bc335dd4c7da6d636bd3e9860bbc896a665c3447b6/watchdog-4.0.2-cp311-cp311-macosx_11_0_arm64.whl", hash = "sha256:984306dc4720da5498b16fc037b36ac443816125a3705dfde4fd90652d8028ef", size = 92888 },
-    { url = "https://files.pythonhosted.org/packages/92/f5/ea22b095340545faea37ad9a42353b265ca751f543da3fb43f5d00cdcd21/watchdog-4.0.2-cp312-cp312-macosx_10_9_universal2.whl", hash = "sha256:1cdcfd8142f604630deef34722d695fb455d04ab7cfe9963055df1fc69e6727a", size = 100342 },
-    { url = "https://files.pythonhosted.org/packages/cb/d2/8ce97dff5e465db1222951434e3115189ae54a9863aef99c6987890cc9ef/watchdog-4.0.2-cp312-cp312-macosx_10_9_x86_64.whl", hash = "sha256:d7ab624ff2f663f98cd03c8b7eedc09375a911794dfea6bf2a359fcc266bff29", size = 92306 },
-    { url = "https://files.pythonhosted.org/packages/49/c4/1aeba2c31b25f79b03b15918155bc8c0b08101054fc727900f1a577d0d54/watchdog-4.0.2-cp312-cp312-macosx_11_0_arm64.whl", hash = "sha256:132937547a716027bd5714383dfc40dc66c26769f1ce8a72a859d6a48f371f3a", size = 92915 },
-    { url = "https://files.pythonhosted.org/packages/79/63/eb8994a182672c042d85a33507475c50c2ee930577524dd97aea05251527/watchdog-4.0.2-cp313-cp313-macosx_10_13_universal2.whl", hash = "sha256:cd67c7df93eb58f360c43802acc945fa8da70c675b6fa37a241e17ca698ca49b", size = 100343 },
-    { url = "https://files.pythonhosted.org/packages/ce/82/027c0c65c2245769580605bcd20a1dc7dfd6c6683c8c4e2ef43920e38d27/watchdog-4.0.2-cp313-cp313-macosx_10_13_x86_64.whl", hash = "sha256:bcfd02377be80ef3b6bc4ce481ef3959640458d6feaae0bd43dd90a43da90a7d", size = 92313 },
-    { url = "https://files.pythonhosted.org/packages/2a/89/ad4715cbbd3440cb0d336b78970aba243a33a24b1a79d66f8d16b4590d6a/watchdog-4.0.2-cp313-cp313-macosx_11_0_arm64.whl", hash = "sha256:980b71510f59c884d684b3663d46e7a14b457c9611c481e5cef08f4dd022eed7", size = 92919 },
-    { url = "https://files.pythonhosted.org/packages/3b/9a/6f30f023324de7bad8a3eb02b0afb06bd0726003a3550e9964321315df5a/watchdog-4.0.2-pp310-pypy310_pp73-macosx_10_15_x86_64.whl", hash = "sha256:10b6683df70d340ac3279eff0b2766813f00f35a1d37515d2c99959ada8f05fa", size = 91775 },
-    { url = "https://files.pythonhosted.org/packages/87/62/8be55e605d378a154037b9ba484e00a5478e627b69c53d0f63e3ef413ba6/watchdog-4.0.2-pp310-pypy310_pp73-macosx_11_0_arm64.whl", hash = "sha256:f7c739888c20f99824f7aa9d31ac8a97353e22d0c0e54703a547a218f6637eb3", size = 92255 },
     { url = "https://files.pythonhosted.org/packages/8a/b1/25acf6767af6f7e44e0086309825bd8c098e301eed5868dc5350642124b9/watchdog-4.0.2-py3-none-manylinux2014_aarch64.whl", hash = "sha256:936acba76d636f70db8f3c66e76aa6cb5136a936fc2a5088b9ce1c7a3508fc83", size = 82947 },
     { url = "https://files.pythonhosted.org/packages/e8/90/aebac95d6f954bd4901f5d46dcd83d68e682bfd21798fd125a95ae1c9dbf/watchdog-4.0.2-py3-none-manylinux2014_armv7l.whl", hash = "sha256:e252f8ca942a870f38cf785aef420285431311652d871409a64e2a0a52a2174c", size = 82942 },
     { url = "https://files.pythonhosted.org/packages/15/3a/a4bd8f3b9381824995787488b9282aff1ed4667e1110f31a87b871ea851c/watchdog-4.0.2-py3-none-manylinux2014_i686.whl", hash = "sha256:0e83619a2d5d436a7e58a1aea957a3c1ccbf9782c43c0b4fed80580e5e4acd1a", size = 82947 },
