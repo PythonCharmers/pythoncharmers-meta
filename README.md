@@ -34,6 +34,12 @@ These extras are available:
 You can add them like this:
 
 ```
-uv pip install pythoncharmers-meta[gis, ml]
+uv pip install "pythoncharmers-meta[gis, ml]"
 ```
 
+## Cutting a new release
+
+```
+uv build
+uvx twine upload dist/*
+```
