@@ -21,20 +21,20 @@ or, if you have [uv](https://docs.astral.sh/uv/), this will be much faster:
 uv pip install pythoncharmers-meta
 ```
 
-## Extras
+## Optional packages (extras)
 
-These extras are available:
+The following sets of optional packages ("extras") are available:
 
-- gis
-- ml
-- scieng
-- net
-- web
+- `gis`
+- `ml`
+- `scieng`
+- `net`
+- `web`
 
 You can add them like this:
 
 ```
-uv pip install "pythoncharmers-meta[gis, ml]"
+uv pip install "pythoncharmers-meta[gis, ml]" --reinstall
 ```
 
 ## Cutting a new release
