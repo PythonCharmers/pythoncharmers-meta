@@ -3699,7 +3699,7 @@ requires-dist = [
     { name = "parse", specifier = ">=1.20.2" },
     { name = "pint", marker = "extra == 'gis'", specifier = ">=0.24.3" },
     { name = "pint", marker = "extra == 'scieng'", specifier = ">=0.24.3" },
-    { name = "plotly", specifier = ">=5.24.1" },
+    { name = "plotly", specifier = ">=5.24.0" },
     { name = "polars", specifier = ">=1.9.0" },
     { name = "psutil", specifier = ">=6.0.0" },
     { name = "psutil", marker = "extra == 'net'", specifier = ">=6.0.0" },
