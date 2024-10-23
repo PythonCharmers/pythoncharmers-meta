@@ -1,6 +1,6 @@
 [project]
 name = "pythoncharmers-meta"
-version = "0.2.5"
+version = "0.2.6"
 description = "Meta package with dependencies for Python Charmers training courses"
 readme = "README.md"
 requires-python = ">=3.10"
@@ -22,7 +22,8 @@ dependencies = [
     "schedule>=1.2.2",
     "requests>=2.32.3",
     "hvplot>=0.10.0",
-    "numpy>=2.0.2,<2.1",  # numba 0.60.0 depends on numpy>=1.22,<2.1
+    # numba 0.60.0 depends on numpy>=1.22,<2.1:
+    "numpy>=2.0.2,<2.1",
     "scipy>=1.14.1",
     "black>=24.8.0",
     "isort>=5.13.2",
@@ -61,6 +62,8 @@ gis = [
     "cftime>=1.6.4",
     "iris>=1.0.7",
     "pint>=0.24.3",
+    "psycopg2-binary>=2.9.10",
+    "geoalchemy>=0.7.2",
 ]
 ml = [
     "scikit-learn>=1.5.1",
