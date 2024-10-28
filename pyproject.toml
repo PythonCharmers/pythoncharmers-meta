@@ -112,6 +112,7 @@ scieng = [
     "bottleneck>=1.4.0",
     "graphviz>=0.20.3",
     "zarr>=2.18.3",
+    "distributed>=2024.9.1",
 ]
 net = [
     "cryptography>=43.0.0",
@@ -130,6 +131,7 @@ net = [
     "httpx>=0.27.2",
     "s3fs>=2024.9.0",
     "aiobotocore>=2.15.1",
+    "distributed>=2024.9.1",
 ]
 
 [build-system]
