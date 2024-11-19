@@ -27,6 +27,7 @@ The following sets of optional packages ("extras") are available:
 
 - `gis`
 - `ml`
+- `dl`
 - `scieng`
 - `net`
 - `web`
