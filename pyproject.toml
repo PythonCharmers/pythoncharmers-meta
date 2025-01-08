@@ -69,6 +69,7 @@ gis = [
     "pint>=0.24.3",
     "psycopg2-binary>=2.9.10",
     "geoalchemy>=0.7.2",
+    "geopy>=2.4.1",
 ]
 ml = [
     "scikit-learn>=1.5.1",
