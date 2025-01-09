@@ -1602,6 +1602,12 @@ http = [
 ]
 
 [[package]]
+name = "ftputil"
+version = "5.1.0"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/73/dc/83f3fa78a9c8a8fe119a70d040df67799094821d3cad511ee0987d544a10/ftputil-5.1.0.tar.gz", hash = "sha256:e9e62d3fd307ef9c52e43b33fd92759fc94c04d8b5178f85f641b183906d4353", size = 86403 }
+
+[[package]]
 name = "future"
 version = "1.0.0"
 source = { registry = "https://pypi.org/simple" }
@@ -3004,6 +3010,15 @@ wheels = [
 ]
 
 [[package]]
+name = "natsort"
+version = "8.4.0"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/e2/a9/a0c57aee75f77794adaf35322f8b6404cbd0f89ad45c87197a937764b7d0/natsort-8.4.0.tar.gz", hash = "sha256:45312c4a0e5507593da193dedd04abb1469253b601ecaf63445ad80f0a1ea581", size = 76575 }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/ef/82/7a9d0550484a62c6da82858ee9419f3dd1ccc9aa1c26a1e43da3ecd20b0d/natsort-8.4.0-py3-none-any.whl", hash = "sha256:4732914fb471f56b5cce04d7bae6f164a592c7712e1c85f9ef585e197299521c", size = 38268 },
+]
+
+[[package]]
 name = "natural"
 version = "0.2.0"
 source = { registry = "https://pypi.org/simple" }
@@ -3361,6 +3376,19 @@ sql-other = [
 ]
 xml = [
     { name = "lxml" },
+]
+
+[[package]]
+name = "pandas-flavor"
+version = "0.6.0"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "pandas" },
+    { name = "xarray" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/b8/d9/7d35f745a46892478b07c1f196d91b3669a725c46035ac3483d3ecf9e113/pandas_flavor-0.6.0.tar.gz", hash = "sha256:9fb8735102dcb65dae7ee5cda12b393ca134a909ebcfc0262c5cdc1d79ba007f", size = 7653 }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/67/1a/bfb5574b215f530c7ac5be684f33d60b299abbebd763c203aa31755f2fb2/pandas_flavor-0.6.0-py3-none-any.whl", hash = "sha256:a32c9e2e0da702579320cf2bd0078cee91807713bc9c65ff522f6b0289899893", size = 7164 },
 ]
 
 [[package]]
@@ -3974,6 +4002,21 @@ wheels = [
 ]
 
 [[package]]
+name = "pyjanitor"
+version = "0.30.0"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "multipledispatch" },
+    { name = "natsort" },
+    { name = "pandas-flavor" },
+    { name = "scipy" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/c0/e7/506247111b3ae45a8cda32aff7c6d132117e752a48af86fe9bf6da89bf24/pyjanitor-0.30.0.tar.gz", hash = "sha256:9378a1b6c9ad214f1ef2e6b24796885228d7f6851fe7ea9904c90f4f4ee61bbe", size = 208814 }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/97/e9/dd91a5093d422c6e7732c5148720e4fda4bf0ceec840e12b57f4eeb51843/pyjanitor-0.30.0-py3-none-any.whl", hash = "sha256:6a801bf28325ddc1892d40d026bf0843486e2c85d071c22f62db1c50e6776936", size = 207936 },
+]
+
+[[package]]
 name = "pymysql"
 version = "1.1.1"
 source = { registry = "https://pypi.org/simple" }
@@ -4253,6 +4296,7 @@ dependencies = [
     { name = "black" },
     { name = "diskcache" },
     { name = "duckdb" },
+    { name = "ftputil" },
     { name = "h5py" },
     { name = "humanize" },
     { name = "hvplot" },
@@ -4264,6 +4308,7 @@ dependencies = [
     { name = "line-profiler" },
     { name = "loguru" },
     { name = "logzero" },
+    { name = "lxml" },
     { name = "matplotlib" },
     { name = "memory-profiler" },
     { name = "mypy" },
@@ -4276,9 +4321,12 @@ dependencies = [
     { name = "plotly" },
     { name = "polars" },
     { name = "psutil" },
+    { name = "pydantic" },
+    { name = "pyjanitor" },
     { name = "requests" },
     { name = "schedule" },
     { name = "scipy" },
+    { name = "seaborn" },
     { name = "sqlalchemy" },
     { name = "statsmodels" },
     { name = "streamlit" },
@@ -4328,7 +4376,6 @@ gis = [
     { name = "rioxarray" },
     { name = "scikit-image" },
     { name = "scipy" },
-    { name = "seaborn" },
     { name = "shapely" },
     { name = "xarray" },
     { name = "zarr" },
@@ -4420,6 +4467,7 @@ requires-dist = [
     { name = "fiona", marker = "extra == 'gis'", specifier = ">=1.10.0" },
     { name = "flask", marker = "extra == 'web'", specifier = ">=3.0.3" },
     { name = "folium", marker = "extra == 'gis'", specifier = ">=0.17.0" },
+    { name = "ftputil", specifier = ">=5.1.0" },
     { name = "geoalchemy", marker = "extra == 'gis'", specifier = ">=0.7.2" },
     { name = "geopandas", marker = "extra == 'gis'", specifier = ">=1.0.1" },
     { name = "geopy", marker = "extra == 'gis'", specifier = ">=2.4.1" },
@@ -4443,6 +4491,7 @@ requires-dist = [
     { name = "line-profiler", specifier = ">=4.1.3" },
     { name = "loguru", specifier = ">=0.7.2" },
     { name = "logzero", specifier = ">=1.7.0" },
+    { name = "lxml", specifier = ">=5.3.0" },
     { name = "matplotlib", specifier = ">=3.9.2" },
     { name = "memory-profiler", specifier = ">=0.61.0" },
     { name = "more-itertools", marker = "extra == 'dl'", specifier = ">=10.5.0" },
@@ -4466,7 +4515,9 @@ requires-dist = [
     { name = "psutil", specifier = ">=6.0.0" },
     { name = "psutil", marker = "extra == 'net'", specifier = ">=6.0.0" },
     { name = "psycopg2-binary", marker = "extra == 'gis'", specifier = ">=2.9.10" },
+    { name = "pydantic", specifier = ">=2.9.2" },
     { name = "pydap", marker = "extra == 'gis'", specifier = ">=3.5" },
+    { name = "pyjanitor", specifier = ">=0.30.0" },
     { name = "pyod", marker = "extra == 'dl'", specifier = ">=2.0.2" },
     { name = "pyod", marker = "extra == 'ml'", specifier = ">=2.0.1" },
     { name = "pyod", marker = "extra == 'scieng'", specifier = ">=2.0.1" },
@@ -4485,7 +4536,7 @@ requires-dist = [
     { name = "scikit-learn", marker = "extra == 'ml'", specifier = ">=1.5.1" },
     { name = "scipy", specifier = ">=1.14.1" },
     { name = "scipy", marker = "extra == 'gis'", specifier = ">=1.14.1" },
-    { name = "seaborn", marker = "extra == 'gis'", specifier = ">=0.13.2" },
+    { name = "seaborn", specifier = ">=0.13.2" },
     { name = "shapely", marker = "extra == 'gis'", specifier = ">=2.0.6" },
     { name = "skorch", marker = "extra == 'dl'", specifier = ">=1.0.0" },
     { name = "skorch", marker = "extra == 'ml'", specifier = ">=1.0.0" },
