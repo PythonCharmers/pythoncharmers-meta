@@ -76,6 +76,7 @@ gis = [
     "geopy>=2.4.1",
     "contextily>=1.6.2",
     "descartes>=1.1.0",
+    "pydantic-geojson>=0.2.0",
 ]
 ml = [
     "scikit-learn>=1.5.1",

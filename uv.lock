@@ -3960,6 +3960,18 @@ wheels = [
 ]
 
 [[package]]
+name = "pydantic-geojson"
+version = "0.2.0"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "pydantic" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/4e/a4/2d8745b3087eacb7741619cd7cecb3f7a605dd445ae2a849848c1d08fd35/pydantic_geojson-0.2.0.tar.gz", hash = "sha256:009dd35eef84330de3d90a159102dba9eccf5ef1fafd05bbd5ba3be541dc09ee", size = 7952 }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/88/09/2719298014713a471f27214cc7688c7b94ca01e3cce8f63177d41219d5d8/pydantic_geojson-0.2.0-py3-none-any.whl", hash = "sha256:01197bed7caab646ca1607c526c3be62143eca34ba96bbfae09a736dbff2ddd2", size = 9584 },
+]
+
+[[package]]
 name = "pydap"
 version = "3.5"
 source = { registry = "https://pypi.org/simple" }
@@ -4369,6 +4381,7 @@ gis = [
     { name = "networkx" },
     { name = "pint" },
     { name = "psycopg2-binary" },
+    { name = "pydantic-geojson" },
     { name = "pydap" },
     { name = "pyproj" },
     { name = "pysal" },
@@ -4516,6 +4529,7 @@ requires-dist = [
     { name = "psutil", marker = "extra == 'net'", specifier = ">=6.0.0" },
     { name = "psycopg2-binary", marker = "extra == 'gis'", specifier = ">=2.9.10" },
     { name = "pydantic", specifier = ">=2.9.2" },
+    { name = "pydantic-geojson", marker = "extra == 'gis'", specifier = ">=0.2.0" },
     { name = "pydap", marker = "extra == 'gis'", specifier = ">=3.5" },
     { name = "pyjanitor", specifier = ">=0.30.0" },
     { name = "pyod", marker = "extra == 'dl'", specifier = ">=2.0.2" },
