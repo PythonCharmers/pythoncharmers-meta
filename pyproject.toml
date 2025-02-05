@@ -1,6 +1,6 @@
 [project]
 name = "pythoncharmers-meta"
-version = "0.3.2"
+version = "0.3.3"
 description = "Meta package with dependencies for Python Charmers training courses"
 readme = "README.md"
 requires-python = ">=3.10"
