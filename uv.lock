@@ -888,6 +888,29 @@ wheels = [
 ]
 
 [[package]]
+name = "connectorx"
+version = "0.4.1"
+source = { registry = "https://pypi.org/simple" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/44/23/f98b910f067e58eeea044ce8ddc3ca6fa913c8667b99a7a9bae73876d553/connectorx-0.4.1-cp310-cp310-macosx_10_7_x86_64.whl", hash = "sha256:9c0be0a6d75d2973c85c659e47449a76023ead772882e696e39b4876aa35a162", size = 37896630 },
+    { url = "https://files.pythonhosted.org/packages/77/ae/536b768e194160a8992c5271e6d90fcdfafa7aecf98faea8326deb974833/connectorx-0.4.1-cp310-cp310-macosx_11_0_arm64.whl", hash = "sha256:df400dff622a4622fd54696870d14b301682bccba4f44740f3445a6e206d5405", size = 36136445 },
+    { url = "https://files.pythonhosted.org/packages/1a/c5/e1269bde5d04570455fe7455c2b4f50062981c0f0817c45d8c63dc2ae0d9/connectorx-0.4.1-cp310-cp310-manylinux_2_28_x86_64.whl", hash = "sha256:03df70a1002c1535f54f90a513cf11e05fb2f137dbd054b630fd67a1e46f27ac", size = 43247526 },
+    { url = "https://files.pythonhosted.org/packages/ec/4e/26e9aca8604f3b8e62893e5c231d487b64f91b70ab5095bb69b9ec9f45fe/connectorx-0.4.1-cp310-none-win_amd64.whl", hash = "sha256:50e86baff363632fbfcc92f01e97c01b8ea2cd49f476d80ffc32348367ef2caf", size = 34749031 },
+    { url = "https://files.pythonhosted.org/packages/2d/74/ede2994e6c6c41185b43a439f052343e0d21719c81eb6d01e5ff3b18a1ff/connectorx-0.4.1-cp311-cp311-macosx_10_7_x86_64.whl", hash = "sha256:e11f6a41f7895a2b31aa769163b8884488f1ab6e4cf51c2624ca3713ae41e11e", size = 37896187 },
+    { url = "https://files.pythonhosted.org/packages/51/36/6addae95faee1729f20b5547930ed847b2cc72f6f6733308fe6f1e472cec/connectorx-0.4.1-cp311-cp311-macosx_11_0_arm64.whl", hash = "sha256:29cf23da07ac777335cce5552f8566e590e0aa431523795baffbe0060c36cfb0", size = 36136188 },
+    { url = "https://files.pythonhosted.org/packages/6e/25/84fc237dd89b6d9a29326be2e92081c2770b2e94133365a0c3fb0e27f906/connectorx-0.4.1-cp311-cp311-manylinux_2_28_x86_64.whl", hash = "sha256:80c0d4df06d0abd2cc8e037ab5a9160dcb808ef79df1b959b14b3f1708a4dc61", size = 43245471 },
+    { url = "https://files.pythonhosted.org/packages/7d/a9/b2fe9fb1522a3e91e356e420b1981b36f45f917013907e0bb7057b272f2e/connectorx-0.4.1-cp311-none-win_amd64.whl", hash = "sha256:8cd569b14fe84010989460fe5f46f1c65572dac898bed8c35c24106c4ce286bc", size = 34747105 },
+    { url = "https://files.pythonhosted.org/packages/c2/88/35c50622ce7a5d7d4d6fa4b6dadcae7ee807fff9fc9a9e712a278c76c26e/connectorx-0.4.1-cp312-cp312-macosx_10_7_x86_64.whl", hash = "sha256:b23b108e2e7a361a058bd83b88cc677a9ef047ad1e9e7ff61a6771f4e6d9536a", size = 37894322 },
+    { url = "https://files.pythonhosted.org/packages/34/43/0c50b6d5fd3e846d6ff21e7d4b6785488660fb55341565fd8751a1610d5e/connectorx-0.4.1-cp312-cp312-macosx_11_0_arm64.whl", hash = "sha256:0bae0c076ce781ec06f9a7e18f0a4f575c754b9100238cc574e8edd221e10ec2", size = 36132134 },
+    { url = "https://files.pythonhosted.org/packages/20/3f/c67d7d4cb2f73495a4cedab9702c49c4a7cbffa860f4ede596014afbbbc7/connectorx-0.4.1-cp312-cp312-manylinux_2_28_x86_64.whl", hash = "sha256:4159f6578a8b539bbbc3a4efd508b9ae38dad5e037f3349d3b5cbebfa7fa8e66", size = 43251108 },
+    { url = "https://files.pythonhosted.org/packages/52/46/fdc6577596c59d2c7cb231a2e037107d873c1e8ff55f197af8c9a1dd09f8/connectorx-0.4.1-cp312-none-win_amd64.whl", hash = "sha256:fd64156b8f6e14cc77f8e4ffe49b77fc4adea1414268433f032b5c91dc5f9e2f", size = 34747963 },
+    { url = "https://files.pythonhosted.org/packages/10/49/ab352f5ff63d7b61410b17ef3849a53e79b03b62abd16cd0c0027fea6d8b/connectorx-0.4.1-cp313-cp313-macosx_10_7_x86_64.whl", hash = "sha256:331ae0f1cd8259d4fa93982f785d7f7e8c462a4c75af1a251584f4d6df630975", size = 37891747 },
+    { url = "https://files.pythonhosted.org/packages/11/cd/303d68a90cf05fdf82a7000a84183d56251c1b34c662e02eba65437e5b38/connectorx-0.4.1-cp313-cp313-macosx_11_0_arm64.whl", hash = "sha256:36686535aa0511fdd0d957d6d234169bb4101801f9d5da4a9b75de3507189c60", size = 36129601 },
+    { url = "https://files.pythonhosted.org/packages/cc/79/19962645defc7e15dec80c520288f3f17ce2c34881d16967cb426c495afd/connectorx-0.4.1-cp313-cp313-manylinux_2_28_x86_64.whl", hash = "sha256:907424f6ac194c20c9408ab94ffac72acefcdc93316dd69ad04d51316a027552", size = 43246407 },
+    { url = "https://files.pythonhosted.org/packages/2c/01/1eb04455bf38db2c3adeeff2f9ea59b8717feb5efaf69282ab72f16a0fd8/connectorx-0.4.1-cp313-none-win_amd64.whl", hash = "sha256:c09aa21bc339dfdeaf8f3d09b17ab10c71be2d32f2eb52e59f3c1647009b4d33", size = 34747594 },
+]
+
+[[package]]
 name = "contextily"
 version = "1.6.2"
 source = { registry = "https://pypi.org/simple" }
@@ -1396,6 +1419,22 @@ source = { registry = "https://pypi.org/simple" }
 sdist = { url = "https://files.pythonhosted.org/packages/5f/d4/e834d929be54bfadb1f3e3b931c38e956aaa3b235a46a3c764c26c774902/fasteners-0.19.tar.gz", hash = "sha256:b4f37c3ac52d8a445af3a66bce57b33b5e90b97c696b7b984f530cf8f0ded09c", size = 24832 }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/61/bf/fd60001b3abc5222d8eaa4a204cd8c0ae78e75adc688f33ce4bf25b7fafa/fasteners-0.19-py3-none-any.whl", hash = "sha256:758819cb5d94cdedf4e836988b74de396ceacb8e2794d21f82d131fd9ee77237", size = 18679 },
+]
+
+[[package]]
+name = "fastexcel"
+version = "0.12.1"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "pyarrow" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/93/bf/1876776d424bbcb069520710df4b930adfe998eaa0bb4a88988254ffa8e7/fastexcel-0.12.1.tar.gz", hash = "sha256:5dc2f1ff3ddff6c933d1f924add7f7f5dc20388c1e70b22afae0f28b3c4f01c9", size = 38264 }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/64/a8/e39f5c609deaf1754b520e75231368b373c4e6a62dfc6e8d283918aa2284/fastexcel-0.12.1-cp38-abi3-macosx_10_12_x86_64.whl", hash = "sha256:7c4c959a49329a53540ed86d4f92cd4af2d774b08c47ad190841e4daf042758a", size = 1174326 },
+    { url = "https://files.pythonhosted.org/packages/b5/d7/1ff26ec00aac2623a87e9397c252f515f45ed28425007c1b895f1810fd5a/fastexcel-0.12.1-cp38-abi3-macosx_11_0_arm64.whl", hash = "sha256:e889290b2d1437e57c4fb500657f0d2908de6aa5b291475b93e3b5d7e0cea938", size = 1141937 },
+    { url = "https://files.pythonhosted.org/packages/9d/56/f4967db7c848e191d633366fe4876af74e656e809c9719c1a7489b50349d/fastexcel-0.12.1-cp38-abi3-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:c09119f14760dfee0c1cb94ef281bee2abb844975fdf0fbf34c5b836ff58d39d", size = 1288445 },
+    { url = "https://files.pythonhosted.org/packages/50/0d/c2e61c3b30d2cbd083cb010346745edc8e6ade3401b1f9d7f083aaff051e/fastexcel-0.12.1-cp38-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:a169b72df88406007d8449a4b216effddeaad5e9d73f4de1fbd8cbfd6ce6a01c", size = 1309212 },
+    { url = "https://files.pythonhosted.org/packages/85/13/6662e60e76e878e2251ca78d7f6630103a8e998f9ca1fa7154f94845425f/fastexcel-0.12.1-cp38-abi3-win_amd64.whl", hash = "sha256:5c1868546ae0912040449e0b26dd4759db3f76a94e0fa5ac3c86fdaf54185e9c", size = 1017083 },
 ]
 
 [[package]]
@@ -4306,8 +4345,10 @@ version = "0.3.3"
 source = { editable = "." }
 dependencies = [
     { name = "black" },
+    { name = "connectorx" },
     { name = "diskcache" },
     { name = "duckdb" },
+    { name = "fastexcel" },
     { name = "ftputil" },
     { name = "h5py" },
     { name = "humanize" },
@@ -4458,6 +4499,7 @@ requires-dist = [
     { name = "bottleneck", marker = "extra == 'scieng'", specifier = ">=1.4.0" },
     { name = "cartopy", marker = "extra == 'gis'", specifier = ">=0.23.0" },
     { name = "cftime", marker = "extra == 'gis'", specifier = ">=1.6.4" },
+    { name = "connectorx", specifier = ">=0.4.1" },
     { name = "contextily", marker = "extra == 'gis'", specifier = ">=1.6.2" },
     { name = "cryptography", marker = "extra == 'net'", specifier = ">=43.0.0" },
     { name = "cryptography", marker = "extra == 'web'", specifier = ">=43.0.0" },
@@ -4477,6 +4519,7 @@ requires-dist = [
     { name = "eli5", marker = "extra == 'ml'", specifier = ">=0.13.0" },
     { name = "evaluate", marker = "extra == 'dl'", specifier = ">=0.4.3" },
     { name = "fastapi", marker = "extra == 'web'", specifier = ">=0.112.3" },
+    { name = "fastexcel", specifier = ">=0.12.1" },
     { name = "fiona", marker = "extra == 'gis'", specifier = ">=1.10.0" },
     { name = "flask", marker = "extra == 'web'", specifier = ">=3.0.3" },
     { name = "folium", marker = "extra == 'gis'", specifier = ">=0.17.0" },
