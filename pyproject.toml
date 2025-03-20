@@ -1,6 +1,6 @@
 [project]
 name = "pythoncharmers-meta"
-version = "0.4.2"
+version = "0.4.4"
 description = "Meta package with dependencies for Python Charmers training courses"
 readme = "README.md"
 requires-python = ">=3.10"
@@ -22,7 +22,8 @@ dependencies = [
     "schedule>=1.2.2",
     "requests>=2.32.3",
     "hvplot>=0.10.0",
-    "numpy>=2.1.3",
+    # Numba requires NumPy 2.1 or less:
+    "numpy>=2.1.3,<2.2.0",
     "scipy>=1.15.2",
     "black>=24.8.0",
     "isort>=5.13.2",
@@ -103,11 +104,9 @@ scieng = [
     "scikit-image>=0.24.0",
     "dask>=2024.8.2",
     # "matplotlib>=3.9.2",
-    # "plotly>=5.24.1",
     "hvplot>=0.10.0",
     "networkx>=3.3",
     # "pandas[aws,compression,computation,consortium-standard,excel,feather,fss,hdf5,html,mysql,output-formatting,parquet,plot,spss,sql-other,xml]>=2.2.3",
-    # "numba>=0.60.0",
     "dask-image>=2024.5.3",
     "holoviews>=1.19.1",
     "bokeh>=3.4.3",
@@ -137,6 +136,9 @@ net = [
     "s3fs>=2024.9.0",
     "aiobotocore>=2.15.1",
     "distributed>=2024.9.1",
+    "fastapi>=0.115.8",
+    "uvicorn>=0.34.0",
+    "locust>=2.33.2",
 ]
 dl = [
     "dataset>=1.5.2",
@@ -158,3 +160,4 @@ dl = [
 [build-system]
 requires = ["hatchling"]
 build-backend = "hatchling.build"
+
