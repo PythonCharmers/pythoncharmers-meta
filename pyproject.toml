@@ -226,6 +226,9 @@ testing = [
     "flake8>=7.1.2",
     "scalene>=1.5.51",
     "snakeviz>=2.2.2",
+    "py-spy>=0.4.0",
+    "pyinstrument>=5.0.1",
+    "gprof2dot>=2024.6.6",
 ]
 db = [
     "pandas[sql-other]>=2.2.3",
