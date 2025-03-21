@@ -25,13 +25,15 @@ uv pip install pythoncharmers-meta
 
 The following sets of optional packages ("extras") are available:
 
-- `gis`: geospatial analysis
-- `ml`: machine learning
+- `analytics`: data analytics
+- `db`: packages for interfacing with various databases
 - `dl`: deep learning
+- `gis`: geospatial analysis
+- `ml`: "classical" machine learning
 - `scieng`: scientific and engineering computing
 - `net`: network engineering, concurrency
-- `web`: web dev
 - `testing`: testing, linting, doc generation
+- `web`: web dev
 
 You can add them like this:
 

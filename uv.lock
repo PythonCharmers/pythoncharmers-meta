@@ -64,6 +64,12 @@ wheels = [
     { url = "https://files.pythonhosted.org/packages/ca/4b/19d32beccfcb647451db25cc2e40dbeb6b763bf274cdc85d22e68511baa4/adbc_driver_manager-1.4.0-cp313-cp313-win_amd64.whl", hash = "sha256:f01441fb8cc7859037ae0c39692bffa26f2fa0da68664589ced5b3794540f402", size = 533846 },
 ]
 
+[package.optional-dependencies]
+dbapi = [
+    { name = "pandas" },
+    { name = "pyarrow" },
+]
+
 [[package]]
 name = "adbc-driver-postgresql"
 version = "1.4.0"
@@ -96,6 +102,12 @@ wheels = [
     { url = "https://files.pythonhosted.org/packages/d1/9c/3e421bde3c6501c0298f13074055935a64a16d0dae4b83e01e70a4bfbd0e/adbc_driver_sqlite-1.4.0-py3-none-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:30f8d658343923a10933ca9657f6373e7fb5e6e05891ec70bc27a719160f0484", size = 955018 },
     { url = "https://files.pythonhosted.org/packages/d7/96/b387c1e47a263e315861eed4bc1680ded534b4e220c365d5804364852add/adbc_driver_sqlite-1.4.0-py3-none-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:f111e982a0816c1f6471c32b87fbfdc21431d46004be301484047acc62d5b07e", size = 976394 },
     { url = "https://files.pythonhosted.org/packages/09/f2/0d250000bb12d0c37a010d26260893624b111fdfe3bd407e5fa369aea90e/adbc_driver_sqlite-1.4.0-py3-none-win_amd64.whl", hash = "sha256:0a22cd5c442f31a87727ba62fb6137f08df54774a25e355e7da06617ecf56b6a", size = 863483 },
+]
+
+[package.optional-dependencies]
+dbapi = [
+    { name = "pandas" },
+    { name = "pyarrow" },
 ]
 
 [[package]]
@@ -1138,6 +1150,15 @@ wheels = [
 ]
 
 [[package]]
+name = "commonmark"
+version = "0.9.1"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/60/48/a60f593447e8f0894ebb7f6e6c1f25dafc5e89c5879fdc9360ae93ff83f0/commonmark-0.9.1.tar.gz", hash = "sha256:452f9dc859be7f06631ddcb328b6919c67984aca654e5fefb3914d54691aed60", size = 95764 }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/b1/92/dfd892312d822f36c55366118b95d914e5f16de11044a27cf10a7d71bbbf/commonmark-0.9.1-py2.py3-none-any.whl", hash = "sha256:da2f38c92590f83de410ba1a3cbceafbc74fee9def35f9251ba9a971d6d66fd9", size = 51068 },
+]
+
+[[package]]
 name = "configargparse"
 version = "1.7"
 source = { registry = "https://pypi.org/simple" }
@@ -1731,6 +1752,18 @@ source = { registry = "https://pypi.org/simple" }
 sdist = { url = "https://files.pythonhosted.org/packages/91/50/a9d80c47ff289c611ff12e63f7c5d13942c65d68125160cefd768c73e6e4/executing-2.2.0.tar.gz", hash = "sha256:5d108c028108fe2551d1a7b2e8b713341e2cb4fc0aa7dcf966fa4327a5226755", size = 978693 }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/7b/8f/c4d9bafc34ad7ad5d8dc16dd1347ee0e507a52c3adb6bfa8887e1c6a26ba/executing-2.2.0-py2.py3-none-any.whl", hash = "sha256:11387150cad388d62750327a53d3339fad4888b39a6fe233c3afbb54ecffd3aa", size = 26702 },
+]
+
+[[package]]
+name = "faicons"
+version = "0.2.2"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "htmltools" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/06/e8/c12ef85c4444616ab1c1e96d5ecbadc8046d40b34797308846a2cfc06c80/faicons-0.2.2.tar.gz", hash = "sha256:6b7d7b19180179b6b83783f91bf6c9311c0f00ae0f97d41be1d24d9942361659", size = 604434 }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/65/3c/1db1b0f878319bb227f35a0fca7cad64e1f528b518bcab1a708da305c86d/faicons-0.2.2-py3-none-any.whl", hash = "sha256:d45d7c2635b53582a3375c67d7e975a28a91d2c16ef5f6b5033b5cdd507224b6", size = 607225 },
 ]
 
 [[package]]
@@ -2355,6 +2388,25 @@ wheels = [
 ]
 
 [[package]]
+name = "great-tables"
+version = "0.17.0"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "babel" },
+    { name = "commonmark" },
+    { name = "faicons" },
+    { name = "htmltools" },
+    { name = "importlib-metadata" },
+    { name = "importlib-resources" },
+    { name = "numpy" },
+    { name = "typing-extensions" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/62/6f/85b80bec676dfb04e167224215475c9c353f72e52d8905c6eb1d2c93ee6f/great_tables-0.17.0.tar.gz", hash = "sha256:1bece693e3e72bb194a7d0aad99ed7af0ec0486576fc00dea7013fa7753e6f17", size = 10921120 }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/a7/fa/4889fc5115e3300bf192958642166f2b9309fab84d367339ddc76a683e43/great_tables-0.17.0-py3-none-any.whl", hash = "sha256:36597209cf7709772207e9b969a3ca62de1b147cc4f4cb69f2b90ec7b935fb3e", size = 1378698 },
+]
+
+[[package]]
 name = "greenlet"
 version = "3.1.1"
 source = { registry = "https://pypi.org/simple" }
@@ -2547,6 +2599,19 @@ wheels = [
 ]
 
 [[package]]
+name = "htmltools"
+version = "0.6.0"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "packaging" },
+    { name = "typing-extensions" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/cd/1d/c568d17e9fb5ad5aa0ca3531c58d36fe69deb8eee4e53ff6425c1f99f210/htmltools-0.6.0.tar.gz", hash = "sha256:e8a3fb023d748935035db7ff17f620612ffc814a6a80b6ae388f7b7ab182adf7", size = 97152 }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/0a/ba/aa99706246f1938ca905eb6eeb7db832ac2e157aa4b805acb5cd4cd1791a/htmltools-0.6.0-py3-none-any.whl", hash = "sha256:072a274ff5e2851e0acce13fc5bb2bbdbbad8268dc8b123f881c05012ce7dce0", size = 84954 },
+]
+
+[[package]]
 name = "httpcore"
 version = "1.0.7"
 source = { registry = "https://pypi.org/simple" }
@@ -2716,7 +2781,7 @@ name = "importlib-metadata"
 version = "8.6.1"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
-    { name = "zipp", marker = "python_full_version < '3.12'" },
+    { name = "zipp" },
 ]
 sdist = { url = "https://files.pythonhosted.org/packages/33/08/c1395a292bb23fd03bdf572a1357c5a733d3eecbab877641ceacab23db6e/importlib_metadata-8.6.1.tar.gz", hash = "sha256:310b41d755445d74569f993ccfc22838295d9fe005425094fad953d7f15c8580", size = 55767 }
 wheels = [
@@ -4603,6 +4668,49 @@ wheels = [
     { url = "https://files.pythonhosted.org/packages/79/ae/f46ff902e5ad0d3ce377902ae8ff65eaac23d9aba3c6bcb3b38ce22f5544/polars-1.22.0-cp39-abi3-win_arm64.whl", hash = "sha256:cde8f56c408151ab9790c43485b90f690d5c198ce26ab38a845045c73c999325", size = 29458831 },
 ]
 
+[package.optional-dependencies]
+async = [
+    { name = "gevent" },
+]
+database = [
+    { name = "adbc-driver-manager", extra = ["dbapi"] },
+    { name = "adbc-driver-sqlite", extra = ["dbapi"] },
+    { name = "connectorx" },
+    { name = "pandas" },
+    { name = "pyarrow" },
+    { name = "sqlalchemy" },
+]
+excel = [
+    { name = "fastexcel" },
+    { name = "openpyxl" },
+    { name = "xlsx2csv" },
+    { name = "xlsxwriter" },
+]
+fsspec = [
+    { name = "fsspec" },
+]
+graph = [
+    { name = "matplotlib" },
+]
+numpy = [
+    { name = "numpy" },
+]
+plot = [
+    { name = "altair" },
+]
+pyarrow = [
+    { name = "pyarrow" },
+]
+pydantic = [
+    { name = "pydantic" },
+]
+style = [
+    { name = "great-tables" },
+]
+timezone = [
+    { name = "tzdata", marker = "sys_platform == 'win32'" },
+]
+
 [[package]]
 name = "pox"
 version = "0.3.5"
@@ -5532,7 +5640,7 @@ dependencies = [
     { name = "pandas", extra = ["aws", "compression", "computation", "consortium-standard", "excel", "feather", "fss", "hdf5", "html", "mysql", "output-formatting", "parquet", "plot", "postgresql", "sql-other", "xml"] },
     { name = "parse" },
     { name = "plotly" },
-    { name = "polars" },
+    { name = "polars", extra = ["excel", "graph", "numpy", "plot", "pyarrow", "pydantic", "style", "timezone"] },
     { name = "psutil" },
     { name = "pydantic" },
     { name = "pytest" },
@@ -5576,7 +5684,8 @@ analytics = [
 db = [
     { name = "duckdb" },
     { name = "ibis-framework", extra = ["duckdb", "polars", "sqlite"] },
-    { name = "pandas", extra = ["compression", "fss", "hdf5", "mysql", "postgresql", "sql-other"] },
+    { name = "pandas", extra = ["mysql", "postgresql", "sql-other"] },
+    { name = "polars", extra = ["database"] },
     { name = "pyodbc" },
     { name = "redis" },
     { name = "sqlalchemy" },
@@ -5659,6 +5768,7 @@ net = [
     { name = "pandas", extra = ["aws", "fss"] },
     { name = "passlib" },
     { name = "pathos" },
+    { name = "polars", extra = ["async", "fsspec"] },
     { name = "psutil" },
     { name = "pyshark" },
     { name = "pytest-repeat" },
@@ -5850,7 +5960,7 @@ requires-dist = [
     { name = "pandas", extras = ["aws", "compression", "computation", "consortium-standard", "excel", "feather", "fss", "hdf5", "html", "mysql", "output-formatting", "parquet", "plot", "sql-other", "xml"], marker = "extra == 'scieng'", specifier = ">=2.2.3" },
     { name = "pandas", extras = ["aws", "compression", "computation", "consortium-standard", "excel", "feather", "fss", "hdf5", "html", "mysql", "postgresql", "output-formatting", "parquet", "plot", "sql-other", "xml"], specifier = ">=2.2.3" },
     { name = "pandas", extras = ["aws", "fss"], marker = "extra == 'net'", specifier = ">=2.2.3" },
-    { name = "pandas", extras = ["compression", "fss", "hdf5", "mysql", "postgresql", "sql-other"], marker = "extra == 'db'", specifier = ">=2.2.3" },
+    { name = "pandas", extras = ["mysql", "postgresql", "sql-other"], marker = "extra == 'db'", specifier = ">=2.2.3" },
     { name = "parse", specifier = ">=1.20.2" },
     { name = "passlib", marker = "extra == 'net'", specifier = ">=1.7.4" },
     { name = "passlib", marker = "extra == 'web'", specifier = ">=1.7.4" },
@@ -5858,7 +5968,9 @@ requires-dist = [
     { name = "pint", marker = "extra == 'gis'", specifier = ">=0.24.3" },
     { name = "pint", marker = "extra == 'scieng'", specifier = ">=0.24.3" },
     { name = "plotly", specifier = ">=5.24.0,<6.0.0" },
-    { name = "polars", specifier = ">=1.22.0" },
+    { name = "polars", extras = ["async", "fsspec"], marker = "extra == 'net'", specifier = ">=1.22.0" },
+    { name = "polars", extras = ["database"], marker = "extra == 'db'", specifier = ">=1.22.0" },
+    { name = "polars", extras = ["excel", "graph", "numpy", "plot", "pyarrow", "pydantic", "style", "timezone"], specifier = ">=1.22.0" },
     { name = "prophet", marker = "extra == 'dl'", specifier = ">=1.1.6" },
     { name = "psutil", specifier = ">=6.0.0" },
     { name = "psutil", marker = "extra == 'net'", specifier = ">=6.0.0" },
@@ -7884,6 +7996,15 @@ source = { registry = "https://pypi.org/simple" }
 sdist = { url = "https://files.pythonhosted.org/packages/a6/b3/19a2540d21dea5f908304375bd43f5ed7a4c28a370dc9122c565423e6b44/xlrd-2.0.1.tar.gz", hash = "sha256:f72f148f54442c6b056bf931dbc34f986fd0c3b0b6b5a58d013c9aef274d0c88", size = 100259 }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/a6/0c/c2a72d51fe56e08a08acc85d13013558a2d793028ae7385448a6ccdfae64/xlrd-2.0.1-py2.py3-none-any.whl", hash = "sha256:6a33ee89877bd9abc1158129f6e94be74e2679636b8a205b43b85206c3f0bbdd", size = 96531 },
+]
+
+[[package]]
+name = "xlsx2csv"
+version = "0.8.4"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/36/20/94860286a308a4213581c1beacd4fc7be724250c03583fcff23aaa6107bb/xlsx2csv-0.8.4.tar.gz", hash = "sha256:2aa809888826f6af5b26c77fc7f613f2bbeada0d8cc09e5a58e0f59684bb6911", size = 221390 }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/c4/c0/15c21556362c67f1155f3643a375d50ac67559b82c768e64e800a42a2577/xlsx2csv-0.8.4-py3-none-any.whl", hash = "sha256:52ab873fc7b2f2ca75d14aee8bd1985a9f5c1bcb3cc7b80df7a5d57a40a67473", size = 15904 },
 ]
 
 [[package]]
