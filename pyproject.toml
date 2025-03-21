@@ -224,6 +224,8 @@ testing = [
     "pyt>=1.0.5",
     "black>=25.1.0",
     "flake8>=7.1.2",
+    "scalene>=1.5.51",
+    "snakeviz>=2.2.2",
 ]
 db = [
     "pandas[sql-other]>=2.2.3",
