@@ -5696,6 +5696,7 @@ scieng = [
     { name = "seaborn" },
     { name = "statsmodels" },
     { name = "streamlit" },
+    { name = "sympy" },
     { name = "tables" },
     { name = "zarr" },
 ]
@@ -5914,6 +5915,7 @@ requires-dist = [
     { name = "streamlit", specifier = ">=1.39.0" },
     { name = "streamlit", marker = "extra == 'analytics'", specifier = ">=1.39.0" },
     { name = "streamlit", marker = "extra == 'scieng'", specifier = ">=1.39.0" },
+    { name = "sympy", marker = "extra == 'scieng'", specifier = ">=1.13.3" },
     { name = "tables", marker = "extra == 'analytics'", specifier = ">=3.10.1" },
     { name = "tables", marker = "extra == 'scieng'", specifier = ">=3.10.1" },
     { name = "tensorboard", marker = "extra == 'dl'", specifier = ">=2.18.0" },
