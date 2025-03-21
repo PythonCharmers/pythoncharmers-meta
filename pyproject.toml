@@ -120,6 +120,7 @@ analytics = [
     "glum>=3.1.2",
     "scikit-learn>=1.6.1",
     "formulaic>=1.1.1",
+    "textblob>=0.19.0",
 ]
 scieng = [
     "h5py>=3.11.0",
