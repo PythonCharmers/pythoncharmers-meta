@@ -117,6 +117,7 @@ analytics = [
     "streamlit>=1.39.0",
     "glum>=3.1.2",
     "scikit-learn>=1.6.1",
+    "formulaic>=1.1.1",
 ]
 scieng = [
     "h5py>=3.11.0",
@@ -147,6 +148,7 @@ scieng = [
     "zarr>=2.18.3",
     "distributed>=2024.9.1",
     "glum>=3.1.2",
+    "formulaic>=1.1.1",
 ]
 net = [
     "pandas[aws,fss]>=2.2.3",
