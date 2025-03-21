@@ -198,6 +198,7 @@ dl = [
     "skorch>=1.0.0",
     "tensorboard>=2.18.0",
     "textdistance>=4.6.3",
+    "transformers>=4.49.0",
     "xgboost>=2.1.1",
     "yellowbrick>=1.5",
 ]
