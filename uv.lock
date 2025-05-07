@@ -2749,20 +2749,20 @@ wheels = [
 
 [[package]]
 name = "ibis-framework"
-version = "10.0.0"
+version = "10.5.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "atpublic" },
     { name = "parsy" },
     { name = "python-dateutil" },
-    { name = "pytz" },
     { name = "sqlglot" },
     { name = "toolz" },
     { name = "typing-extensions" },
+    { name = "tzdata" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/0a/65/f5bff0ee716930a3f117c8dd72f14e7e40516ea3932b398c54223696de0a/ibis_framework-10.0.0.tar.gz", hash = "sha256:c312f1590053d9eb35ce91d31216d21ec66fea4d519b6bb19001b3b30e3e7b3f", size = 1210456, upload-time = "2025-02-06T21:07:43.623Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/92/e6/cdd11a0bb157fee9c7927926d4ab340e0ddf071db22b095903f26a387d1c/ibis_framework-10.5.0.tar.gz", hash = "sha256:b266c905bff220821e580b14504644e688379af6880ec11882e7176d9d89f096", size = 1224584, upload-time = "2025-04-18T20:10:15.449Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/8c/b9/f2c3268aee10a7295d46990fbfced3506b12b63fc1ee4481eed9b94a4f01/ibis_framework-10.0.0-py3-none-any.whl", hash = "sha256:94f5c4391f14a4d7406b52d8fc12d3a52c5828badc25fa34289f56587da6f76c", size = 1913996, upload-time = "2025-02-06T21:07:40.69Z" },
+    { url = "https://files.pythonhosted.org/packages/2d/2c/7f32ba15302847f0cd0d01101470b2f427ec5b3a07756f41c823c01c0242/ibis_framework-10.5.0-py3-none-any.whl", hash = "sha256:71715839e655c37c12e4ff3cd6fe1e8ba82350faab074b1a5324084734a8fe15", size = 1927259, upload-time = "2025-04-18T20:10:12.603Z" },
 ]
 
 [package.optional-dependencies]
@@ -4771,16 +4771,16 @@ wheels = [
 
 [[package]]
 name = "polars"
-version = "1.22.0"
+version = "1.29.0"
 source = { registry = "https://pypi.org/simple" }
-sdist = { url = "https://files.pythonhosted.org/packages/62/f8/148964866c43e6c9d2440da69149cedaca8ad799efbeba1f2bd58c48d95f/polars-1.22.0.tar.gz", hash = "sha256:8d94ae25085d92de10d93ab6a06c94f8c911bd5d9c1ff17cd1073a9dca766029", size = 4399700, upload-time = "2025-02-08T11:19:38.764Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/0b/92/8d0e80fef779a392b1a736b554ffba62403026bad7df8a9de8b61dce018f/polars-1.29.0.tar.gz", hash = "sha256:d2acb71fce1ff0ea76db5f648abd91a7a6c460fafabce9a2e8175184efa00d02", size = 4582973, upload-time = "2025-04-30T20:57:22.46Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/75/59/ff6185f1cd3898a655fb69571986433adec80c5fe5dbd37edf1025dbbd17/polars-1.22.0-cp39-abi3-macosx_10_12_x86_64.whl", hash = "sha256:6250f838b916fab23ccafe90928d7952afc328d316c956b42d152b20c86ffd9c", size = 32294750, upload-time = "2025-02-08T11:17:55.835Z" },
-    { url = "https://files.pythonhosted.org/packages/4e/89/ac9178aaf4bfce1087d311ddf540b259a517b584a62ba75dfd114a38e049/polars-1.22.0-cp39-abi3-macosx_11_0_arm64.whl", hash = "sha256:5ee3cf3783205709ce31f070f2b4ee4296fec08f2c744a9c37acc7d360121022", size = 29145077, upload-time = "2025-02-08T11:18:03.063Z" },
-    { url = "https://files.pythonhosted.org/packages/91/b6/d7967ca14b8bacf7d3db96b55213571c43443f8802229606cca60458780b/polars-1.22.0-cp39-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:94f25b4ef131da046d05b8235c5f29997630ee2125ebc0553b92258e88f7a8fa", size = 32885965, upload-time = "2025-02-08T11:18:08.657Z" },
-    { url = "https://files.pythonhosted.org/packages/a2/ae/c014bcb259757acd9081b4db76d19157c8978cb6eeb864f80ac0544e85cd/polars-1.22.0-cp39-abi3-manylinux_2_24_aarch64.whl", hash = "sha256:729e6be8a884812a206518195a2fb407b61962323886095ede1a2a934cdb1410", size = 30165643, upload-time = "2025-02-08T11:18:14.135Z" },
-    { url = "https://files.pythonhosted.org/packages/82/ef/2a13676be0f0cfa23f1899855d8342b303cc46111126b770cdacc7fd804d/polars-1.22.0-cp39-abi3-win_amd64.whl", hash = "sha256:78b8bcd1735e9376815d117aeae49391441b2199b5a70a300669d692b34ec713", size = 33179742, upload-time = "2025-02-08T11:18:19.796Z" },
-    { url = "https://files.pythonhosted.org/packages/79/ae/f46ff902e5ad0d3ce377902ae8ff65eaac23d9aba3c6bcb3b38ce22f5544/polars-1.22.0-cp39-abi3-win_arm64.whl", hash = "sha256:cde8f56c408151ab9790c43485b90f690d5c198ce26ab38a845045c73c999325", size = 29458831, upload-time = "2025-02-08T11:18:25.767Z" },
+    { url = "https://files.pythonhosted.org/packages/e7/5f/b277179cfce1258fecf4ad73cf627f670be41fdf088727090f68ca9c96ff/polars-1.29.0-cp39-abi3-macosx_10_12_x86_64.whl", hash = "sha256:d053ee3217df31468caf2f5ddb9fd0f3a94fd42afdf7d9abe23d9d424adca02b", size = 34206809, upload-time = "2025-04-30T20:56:14.744Z" },
+    { url = "https://files.pythonhosted.org/packages/34/e7/634e5cb55ce8bef23ac8ad8e3834c9045f4b3cbdff1fb9e7826d864436e6/polars-1.29.0-cp39-abi3-macosx_11_0_arm64.whl", hash = "sha256:14131078e365eae5ccda3e67383cd43c0c0598d7f760bdf1cb4082566c5494ce", size = 31100055, upload-time = "2025-04-30T20:56:19.43Z" },
+    { url = "https://files.pythonhosted.org/packages/50/15/0e9072e410731980ebc567c60a0a5f02bc2183310e48704ef83682cdd54c/polars-1.29.0-cp39-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:54f6902da333f99208b8d27765d580ba0299b412787c0564275912122c228e40", size = 34828438, upload-time = "2025-04-30T20:56:22.839Z" },
+    { url = "https://files.pythonhosted.org/packages/69/c0/90fcaac5c95aa225b3899698289c0424d429ef72248b593f15294f95a35e/polars-1.29.0-cp39-abi3-manylinux_2_24_aarch64.whl", hash = "sha256:7a0ac6a11088279af4d715f4b58068835f551fa5368504a53401743006115e78", size = 32073830, upload-time = "2025-04-30T20:56:26.742Z" },
+    { url = "https://files.pythonhosted.org/packages/17/ed/e5e570e22a03549a3c5397035a006b2c6343856a9fd15cccb5db39bdfa0a/polars-1.29.0-cp39-abi3-win_amd64.whl", hash = "sha256:f5aac4656e58b1e12f9481950981ef68b5b0e53dd4903bd72472efd2d09a74c8", size = 34971841, upload-time = "2025-04-30T20:56:29.953Z" },
+    { url = "https://files.pythonhosted.org/packages/45/fd/9039f609d76b3ebb13777f289502a00b52709aea5c35aed01d1090ac142f/polars-1.29.0-cp39-abi3-win_arm64.whl", hash = "sha256:0c105b07b980b77fe88c3200b015bf4695e53185385f0f244c13e2d1027c7bbf", size = 31298689, upload-time = "2025-04-30T20:56:33.449Z" },
 ]
 
 [package.optional-dependencies]
@@ -5828,7 +5828,7 @@ wheels = [
 
 [[package]]
 name = "pythoncharmers-meta"
-version = "0.5.6"
+version = "0.5.7"
 source = { editable = "." }
 dependencies = [
     { name = "black" },
@@ -5860,7 +5860,6 @@ dependencies = [
     { name = "rich" },
     { name = "ruff" },
     { name = "schedule" },
-    { name = "sqlalchemy" },
     { name = "streamlit" },
     { name = "toolz" },
     { name = "tqdm" },
@@ -5890,7 +5889,6 @@ analytics = [
     { name = "scikit-learn" },
     { name = "scipy" },
     { name = "seaborn" },
-    { name = "sqlalchemy", extra = ["asyncio"] },
     { name = "statsmodels" },
     { name = "streamlit" },
     { name = "tables" },
@@ -6149,8 +6147,8 @@ requires-dist = [
     { name = "hvplot", marker = "extra == 'analytics'", specifier = ">=0.10.0" },
     { name = "hvplot", marker = "extra == 'scieng'", specifier = ">=0.10.0" },
     { name = "hypothesis", marker = "extra == 'testing'", specifier = ">=6.129.4" },
-    { name = "ibis-framework", extras = ["duckdb", "polars", "sqlite"], marker = "extra == 'analytics'", specifier = ">=9.5.0" },
-    { name = "ibis-framework", extras = ["duckdb", "polars", "sqlite"], marker = "extra == 'db'", specifier = ">=9.5.0" },
+    { name = "ibis-framework", extras = ["duckdb", "polars", "sqlite"], marker = "extra == 'analytics'", specifier = ">=10.5.0" },
+    { name = "ibis-framework", extras = ["duckdb", "polars", "sqlite"], marker = "extra == 'db'", specifier = ">=10.5.0" },
     { name = "ipython", specifier = ">=8.12.3" },
     { name = "iris", marker = "extra == 'gis'", specifier = ">=1.0.7" },
     { name = "isort", specifier = ">=5.13.2" },
@@ -6194,10 +6192,10 @@ requires-dist = [
     { name = "pathos", marker = "extra == 'net'", specifier = ">=0.3.3" },
     { name = "pint", marker = "extra == 'gis'", specifier = ">=0.24.3" },
     { name = "pint", marker = "extra == 'scieng'", specifier = ">=0.24.3" },
-    { name = "plotly", specifier = ">=5.24.0,!=6.0.0" },
-    { name = "polars", extras = ["async", "fsspec"], marker = "extra == 'net'", specifier = ">=1.22.0" },
-    { name = "polars", extras = ["database"], marker = "extra == 'db'", specifier = ">=1.22.0" },
-    { name = "polars", extras = ["excel", "graph", "numpy", "plot", "pyarrow", "pydantic", "style", "timezone"], specifier = ">=1.22.0" },
+    { name = "plotly", specifier = ">=5.24.0,!=6.0.*" },
+    { name = "polars", extras = ["async", "fsspec"], marker = "extra == 'net'", specifier = ">=1.29.0" },
+    { name = "polars", extras = ["database"], marker = "extra == 'db'", specifier = ">=1.29.0" },
+    { name = "polars", extras = ["excel", "graph", "numpy", "plot", "pyarrow", "pydantic", "style", "timezone"], specifier = ">=1.29.0" },
     { name = "prophet", marker = "extra == 'dl'", specifier = ">=1.1.6" },
     { name = "psutil", specifier = ">=6.0.0" },
     { name = "psutil", marker = "extra == 'net'", specifier = ">=6.0.0" },
@@ -6251,15 +6249,13 @@ requires-dist = [
     { name = "skorch", marker = "extra == 'ml'", specifier = ">=1.0.0" },
     { name = "snakeviz", marker = "extra == 'testing'", specifier = ">=2.2.2" },
     { name = "sphinx", marker = "extra == 'testing'", specifier = ">=8.1.3" },
-    { name = "sqlalchemy", specifier = ">=2.0.35" },
     { name = "sqlalchemy", marker = "extra == 'db'", specifier = ">=2.0.38" },
     { name = "sqlalchemy", marker = "extra == 'web'", specifier = ">=2.0.35" },
-    { name = "sqlalchemy", extras = ["asyncio"], marker = "extra == 'analytics'", specifier = ">=2.0.35" },
     { name = "statsmodels", marker = "extra == 'analytics'", specifier = ">=0.14.4" },
     { name = "statsmodels", marker = "extra == 'scieng'", specifier = ">=0.14.4" },
-    { name = "streamlit", specifier = ">=1.39.0" },
-    { name = "streamlit", marker = "extra == 'analytics'", specifier = ">=1.39.0" },
-    { name = "streamlit", marker = "extra == 'scieng'", specifier = ">=1.39.0" },
+    { name = "streamlit", specifier = ">=1.45.0" },
+    { name = "streamlit", marker = "extra == 'analytics'", specifier = ">=1.45.0" },
+    { name = "streamlit", marker = "extra == 'scieng'", specifier = ">=1.45.0" },
     { name = "sympy", marker = "extra == 'scieng'", specifier = ">=1.13.3" },
     { name = "tables", marker = "extra == 'analytics'", specifier = ">=3.10.1" },
     { name = "tables", marker = "extra == 'scieng'", specifier = ">=3.10.1" },
@@ -7590,11 +7586,6 @@ wheels = [
     { url = "https://files.pythonhosted.org/packages/aa/e4/592120713a314621c692211eba034d09becaf6bc8848fabc1dc2a54d8c16/SQLAlchemy-2.0.38-py3-none-any.whl", hash = "sha256:63178c675d4c80def39f1febd625a6333f44c0ba269edd8a468b156394b27753", size = 1896347, upload-time = "2025-02-06T22:08:29.784Z" },
 ]
 
-[package.optional-dependencies]
-asyncio = [
-    { name = "greenlet" },
-]
-
 [[package]]
 name = "sqlglot"
 version = "26.3.9"
@@ -7704,7 +7695,7 @@ wheels = [
 
 [[package]]
 name = "streamlit"
-version = "1.42.0"
+version = "1.45.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "altair" },
@@ -7720,16 +7711,15 @@ dependencies = [
     { name = "pyarrow" },
     { name = "pydeck" },
     { name = "requests" },
-    { name = "rich" },
     { name = "tenacity" },
     { name = "toml" },
     { name = "tornado" },
     { name = "typing-extensions" },
     { name = "watchdog", marker = "sys_platform != 'darwin'" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/0e/61/a59da06a2822b265fc6230650a1ec4b9203da76ee9cf023083752debf9fa/streamlit-1.42.0.tar.gz", hash = "sha256:8c48494ccfad33e7d0bc5873151800b203cb71203bfd42bc7418940710ca4970", size = 9169261, upload-time = "2025-02-04T19:34:42.222Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/c0/52/83d46b4c5044477e9c6dee779704a9d4041610439533af9c0a5084921098/streamlit-1.45.0.tar.gz", hash = "sha256:4e99014e113a11a7163b9da5ac079efb1ae5f8575a09c5a6a9c43cd6877a2a88", size = 9462166, upload-time = "2025-04-29T17:34:33.458Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/ad/dc/69068179e09488d0833a970d06e8bf40e35669a7bddb8a3caadc13b7dff4/streamlit-1.42.0-py2.py3-none-any.whl", hash = "sha256:edf333fd3525b7c64b19e1156b483a1a93cbdb09a3a06f26478388d68f971090", size = 9560180, upload-time = "2025-02-04T19:34:37.928Z" },
+    { url = "https://files.pythonhosted.org/packages/43/ff/f41cfaf1bb58223fe77ff87213a689f6c9c82f7363f9d7c879d294dbe985/streamlit-1.45.0-py3-none-any.whl", hash = "sha256:b7d03ec68a23de0f1922ec9a28fbe3fe37d9fb31ad31d6c429d262c3631c2943", size = 9856265, upload-time = "2025-04-29T17:34:30.403Z" },
 ]
 
 [[package]]
