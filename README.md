@@ -27,9 +27,9 @@ The following sets of optional packages ("extras") are available:
 
 - `analytics`: data analytics
 - `db`: packages for interfacing with various databases
-- `dl`: deep learning
 - `gis`: geospatial analysis
 - `ml`: "classical" machine learning
+- `dl`: deep learning (a strict superset of [ml])
 - `net`: network engineering, concurrency
 - `scieng`: scientific and engineering computing
 - `testing`: testing, linting, doc generation

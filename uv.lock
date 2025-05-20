@@ -1691,7 +1691,7 @@ wheels = [
 
 [[package]]
 name = "eli5"
-version = "0.13.0"
+version = "0.16.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "attrs" },
@@ -1700,10 +1700,12 @@ dependencies = [
     { name = "numpy" },
     { name = "scikit-learn" },
     { name = "scipy" },
-    { name = "six" },
     { name = "tabulate" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/b5/30/3be87d2a7ca12a6ec45b8a5f6fd10be9992cc4b239dfb029c80091add477/eli5-0.13.0.tar.gz", hash = "sha256:ec8459eaaf09d66743c53a7bdb115c6cda7e533d7a5d02a5a8bb717ee843eb37", size = 216240, upload-time = "2022-05-11T09:37:12.474Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/dc/1f/f504e0b730e08d4ef89b1628dc83951a93677660bb8d8738d012f6f0da7f/eli5-0.16.0.tar.gz", hash = "sha256:6d8ab55b3535f8feecf4f98dbaadd6876121e5a2549735635cf71707d34bd47c", size = 271026, upload-time = "2025-04-20T16:38:00.92Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/68/a0/23e75b17140708414fbe01b3bdc43ed3b8ed43933fe8f18466623c1fc251/eli5-0.16.0-py2.py3-none-any.whl", hash = "sha256:b81256483591542fe69a1c62d4dea4a2f2f75afa81559c237856c9c6ead62ab4", size = 108414, upload-time = "2025-04-20T16:37:59.129Z" },
+]
 
 [[package]]
 name = "esda"
@@ -5452,7 +5454,7 @@ wheels = [
 
 [[package]]
 name = "pyod"
-version = "2.0.3"
+version = "2.0.5"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "joblib" },
@@ -5462,7 +5464,10 @@ dependencies = [
     { name = "scikit-learn" },
     { name = "scipy" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/23/0a/c077146e001bd3419360594e4be7e0b8bdb4e6d23b7d8fc6237f163085e7/pyod-2.0.3.tar.gz", hash = "sha256:68bb7333061ecb04113e39180efc75918a077f86b349a5e927dede0d5bb4473a", size = 169620, upload-time = "2024-12-22T00:21:49.196Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/9b/08/285c2fa790a095a212c9300ed77b69bf1e90233853cb260ac0edcbb1b029/pyod-2.0.5.tar.gz", hash = "sha256:c1c2d2f3e8ebfb047c9b5da556cce924e64f7eeb1ad9d5af1455843ec13cb3d1", size = 169761, upload-time = "2025-04-29T22:26:59.531Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/29/38/dee2fc597010654c3a7588f0990192680c5f2d405fbf6f2e5f5c4df1c736/pyod-2.0.5-py3-none-any.whl", hash = "sha256:1a3182529c68e388be0671840bb11f83d5d1deb738ad931d294881f7d50e4fdb", size = 200628, upload-time = "2025-04-29T22:26:57.284Z" },
+]
 
 [[package]]
 name = "pyodbc"
@@ -5834,7 +5839,7 @@ wheels = [
 
 [[package]]
 name = "pythoncharmers-meta"
-version = "0.5.7"
+version = "0.5.8"
 source = { editable = "." }
 dependencies = [
     { name = "black" },
@@ -6118,8 +6123,8 @@ requires-dist = [
     { name = "duckdb", marker = "extra == 'analytics'", specifier = ">=1.1.3" },
     { name = "duckdb", marker = "extra == 'db'", specifier = ">=1.1.3" },
     { name = "duckdb", marker = "extra == 'scieng'", specifier = ">=1.1.3" },
-    { name = "eli5", marker = "extra == 'dl'", specifier = ">=0.13.0" },
-    { name = "eli5", marker = "extra == 'ml'", specifier = ">=0.13.0" },
+    { name = "eli5", marker = "extra == 'dl'", specifier = ">=0.15.0" },
+    { name = "eli5", marker = "extra == 'ml'", specifier = ">=0.15.0" },
     { name = "evaluate", marker = "extra == 'dl'", specifier = ">=0.4.3" },
     { name = "fastapi", marker = "extra == 'net'", specifier = ">=0.115.8" },
     { name = "fastapi", marker = "extra == 'web'", specifier = ">=0.115.8" },
@@ -6215,10 +6220,10 @@ requires-dist = [
     { name = "pydap", marker = "extra == 'gis'", specifier = ">=3.5" },
     { name = "pyinstrument", marker = "extra == 'testing'", specifier = ">=5.0.1" },
     { name = "pylint", marker = "extra == 'testing'", specifier = ">=3.3.6" },
-    { name = "pyod", marker = "extra == 'analytics'", specifier = ">=2.0.1" },
-    { name = "pyod", marker = "extra == 'dl'", specifier = ">=2.0.2" },
-    { name = "pyod", marker = "extra == 'ml'", specifier = ">=2.0.2" },
-    { name = "pyod", marker = "extra == 'scieng'", specifier = ">=2.0.1" },
+    { name = "pyod", marker = "extra == 'analytics'", specifier = ">=2.0.5" },
+    { name = "pyod", marker = "extra == 'dl'", specifier = ">=2.0.5" },
+    { name = "pyod", marker = "extra == 'ml'", specifier = ">=2.0.5" },
+    { name = "pyod", marker = "extra == 'scieng'", specifier = ">=2.0.5" },
     { name = "pyodbc", marker = "extra == 'db'", specifier = ">=5.2.0" },
     { name = "pyproj", marker = "extra == 'gis'", specifier = ">=3.6.1" },
     { name = "pysal", marker = "extra == 'gis'", specifier = ">=24.7" },
@@ -6244,8 +6249,8 @@ requires-dist = [
     { name = "scikit-image", marker = "extra == 'gis'", specifier = ">=0.24.0" },
     { name = "scikit-image", marker = "extra == 'scieng'", specifier = ">=0.24.0" },
     { name = "scikit-learn", marker = "extra == 'analytics'", specifier = ">=1.6.1" },
-    { name = "scikit-learn", marker = "extra == 'dl'", specifier = ">=1.5.2" },
-    { name = "scikit-learn", marker = "extra == 'ml'", specifier = ">=1.5.2" },
+    { name = "scikit-learn", marker = "extra == 'dl'", specifier = ">=1.6.1" },
+    { name = "scikit-learn", marker = "extra == 'ml'", specifier = ">=1.6.1" },
     { name = "scipy", marker = "extra == 'analytics'", specifier = ">=1.15.2" },
     { name = "scipy", marker = "extra == 'gis'", specifier = ">=1.15" },
     { name = "scipy", marker = "extra == 'scieng'", specifier = ">=1.15.2" },
