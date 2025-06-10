@@ -1,6 +1,6 @@
 [project]
 name = "pythoncharmers-meta"
-version = "0.5.9"
+version = "0.5.10"
 description = "Meta package with dependencies for Python Charmers training courses"
 readme = "README.md"
 requires-python = ">=3.10"
@@ -125,6 +125,7 @@ analytics = [
     "formulaic>=1.1.1",
     "textblob>=0.19.0",
     "textdistance[extras]>=4.6.3",
+    "pandera[mypy,pandas,polars]>=0.24.0",
 ]
 scieng = [
     "pooch>=1.8.2",
