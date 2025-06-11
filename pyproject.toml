@@ -1,6 +1,6 @@
 [project]
 name = "pythoncharmers-meta"
-version = "0.5.10"
+version = "0.5.11"
 description = "Meta package with dependencies for Python Charmers training courses"
 readme = "README.md"
 requires-python = ">=3.10"
@@ -79,7 +79,7 @@ ml = [
     "xgboost>=2.1.1",
     "eli5>=0.15.0",
     "pyod>=2.0.5",
-    "textdistance[extras]>=4.6.3",
+    "textdistance[Levenshtein]>=4.6.3",
     "skorch>=1.0.0",
     "joblib>=1.4.2",
 ]
@@ -124,7 +124,7 @@ analytics = [
     "scikit-learn>=1.6.1",
     "formulaic>=1.1.1",
     "textblob>=0.19.0",
-    "textdistance[extras]>=4.6.3",
+    "textdistance[Levenshtein]>=4.6.3",
     "pandera[mypy,pandas,polars]>=0.24.0",
 ]
 scieng = [
@@ -204,7 +204,7 @@ dl = [
     "scikit-learn>=1.6.1",
     "skorch>=1.0.0",
     "tensorboard>=2.18.0",
-    "textdistance[extras]>=4.6.3",
+    "textdistance[Levenshtein]>=4.6.3",
     "transformers>=4.49.0",
     "xgboost>=2.1.1",
     "yellowbrick>=1.5",
