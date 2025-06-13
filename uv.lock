@@ -5977,7 +5977,7 @@ wheels = [
 
 [[package]]
 name = "pythoncharmers-meta"
-version = "0.5.11"
+version = "0.5.12"
 source = { editable = "." }
 dependencies = [
     { name = "black" },
