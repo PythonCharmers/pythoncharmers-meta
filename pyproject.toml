@@ -1,6 +1,6 @@
 [project]
 name = "pythoncharmers-meta"
-version = "0.6.0"
+version = "0.6.1"
 description = "Meta package with dependencies for Python Charmers training courses"
 readme = "README.md"
 requires-python = ">=3.10"
@@ -244,6 +244,14 @@ db = [
     "pyodbc>=5.2.0",
     "redis>=5.2.1",
     "sqlalchemy>=2.0.38",
+]
+bio = [
+    "anndata>=0.11.4",
+    "biopython>=1.85",
+    "paramiko>=3.5.1",
+    "pooch>=1.8.2",
+    "scanpy>=1.11.2",
+    "tqdm>=4.67.1",
 ]
 
 [build-system]
