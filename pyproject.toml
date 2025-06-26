@@ -1,6 +1,6 @@
 [project]
 name = "pythoncharmers-meta"
-version = "0.6.1"
+version = "0.6.2"
 description = "Meta package with dependencies for Python Charmers training courses"
 readme = "README.md"
 requires-python = ">=3.10"
@@ -26,7 +26,7 @@ dependencies = [
     "numexpr>=2.10.1",
     "numpy<2.3.0",
     "openpyxl>=3.1.5",
-    "pandas[aws,compression,computation,consortium-standard,excel,feather,fss,hdf5,html,output-formatting,parquet,plot,sql-other,xml]>=2.2.3",
+    "pandas[aws,compression,computation,consortium-standard,excel,feather,fss,hdf5,html,output-formatting,parquet,plot,xml]>=2.2.3",
     "parse>=1.20.2",
     "plotly>=5.24.0,!=6.0.*",
     "polars[excel,graph,numpy,plot,pyarrow,pydantic,style,timezone]>=1.29.0",
@@ -96,7 +96,7 @@ web = [
     "jinja2>=3.1.5",
     "passlib>=1.7.4",
     "scrapy>=2.12.0",
-    "sqlalchemy>=2.0.35",
+    # "sqlalchemy>=2.0.35",
 ]
 analytics = [
     "altair>=5.4.1",
@@ -116,7 +116,7 @@ analytics = [
     "matplotlib>=3.9.2",
     "networkx>=3.3",
     "numba>=0.61.0",
-    "pandas[aws,compression,computation,consortium-standard,excel,feather,fss,hdf5,html,output-formatting,parquet,plot,spss,sql-other,xml]>=2.2.3",
+    "pandas[aws,compression,computation,consortium-standard,excel,feather,fss,hdf5,html,output-formatting,parquet,plot,spss,xml]>=2.2.3",
     "pandera[mypy,pandas,polars]>=0.24.0",
     "pyod>=2.0.5",
     "scikit-learn>=1.6.1",
@@ -148,7 +148,7 @@ scieng = [
     "matplotlib>=3.9.2",
     "networkx>=3.3",
     "numba>=0.61.0",
-    "pandas[aws,compression,computation,consortium-standard,excel,feather,fss,hdf5,html,output-formatting,parquet,plot,sql-other,xml]>=2.2.3",
+    "pandas[aws,compression,computation,consortium-standard,excel,feather,fss,hdf5,html,output-formatting,parquet,plot,xml]>=2.2.3",
     "pint>=0.24.3",
     "pooch>=1.8.2",
     "pyod>=2.0.5",
