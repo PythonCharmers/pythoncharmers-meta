@@ -1,6 +1,6 @@
 [project]
 name = "pythoncharmers-meta"
-version = "0.6.2"
+version = "0.7.0"
 description = "Meta package with dependencies for Python Charmers training courses"
 readme = "README.md"
 requires-python = ">=3.10"
@@ -252,6 +252,12 @@ bio = [
     "pooch>=1.8.2",
     "scanpy>=1.11.2",
     "tqdm>=4.67.1",
+]
+docs = [
+    # "quarto-cli",
+    "nbclient",
+    "jupyter",
+    "jupyter-cache"
 ]
 
 [build-system]
