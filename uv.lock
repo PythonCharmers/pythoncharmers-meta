@@ -6885,7 +6885,7 @@ wheels = [
 
 [[package]]
 name = "pythoncharmers-meta"
-version = "0.7.0"
+version = "0.7.1"
 source = { editable = "." }
 dependencies = [
     { name = "black" },
@@ -6962,6 +6962,7 @@ bio = [
     { name = "paramiko" },
     { name = "pooch" },
     { name = "scanpy" },
+    { name = "scikit-image" },
     { name = "tqdm" },
 ]
 db = [
@@ -6991,6 +6992,7 @@ dl = [
     { name = "yellowbrick" },
 ]
 docs = [
+    { name = "black" },
     { name = "jupyter" },
     { name = "jupyter-cache" },
     { name = "nbclient" },
@@ -7155,6 +7157,7 @@ requires-dist = [
     { name = "beautifulsoup4", marker = "extra == 'web'", specifier = ">=4.13.3" },
     { name = "biopython", marker = "extra == 'bio'", specifier = ">=1.85" },
     { name = "black", specifier = ">=24.8.0" },
+    { name = "black", marker = "extra == 'docs'" },
     { name = "black", marker = "extra == 'testing'", specifier = ">=25.1.0" },
     { name = "bokeh", marker = "extra == 'analytics'", specifier = ">=3.4.3" },
     { name = "bokeh", marker = "extra == 'scieng'", specifier = ">=3.4.3" },
@@ -7322,6 +7325,7 @@ requires-dist = [
     { name = "scalene", marker = "extra == 'testing'", specifier = ">=1.5.51" },
     { name = "scanpy", marker = "extra == 'bio'", specifier = ">=1.11.2" },
     { name = "schedule", specifier = ">=1.2.2" },
+    { name = "scikit-image", marker = "extra == 'bio'", specifier = ">=0.24.0" },
     { name = "scikit-image", marker = "extra == 'gis'", specifier = ">=0.24.0" },
     { name = "scikit-image", marker = "extra == 'scieng'", specifier = ">=0.24.0" },
     { name = "scikit-learn", marker = "extra == 'analytics'", specifier = ">=1.6.1" },
