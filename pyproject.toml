@@ -1,6 +1,6 @@
 [project]
 name = "pythoncharmers-meta"
-version = "0.7.1"
+version = "0.7.2"
 description = "Meta package with dependencies for Python Charmers training courses"
 readme = "README.md"
 requires-python = ">=3.10"
@@ -252,6 +252,7 @@ bio = [
     "pooch>=1.8.2",
     "scanpy>=1.11.2",
     "scikit-image>=0.24.0",
+    "scikit-misc>=0.5.1",
     "tqdm>=4.67.1",
 ]
 # The 'docs' extra includes support for building course notes using Quarto:
