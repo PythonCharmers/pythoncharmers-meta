@@ -35,6 +35,10 @@ The following sets of optional packages ("extras") are available:
 - `testing`: testing, linting, doc generation
 - `web`: web dev
 
+This extra helps with building course notes:
+
+- `docs`
+
 You can add them like this:
 
 ```
