@@ -113,21 +113,20 @@ def get_markdown_after_code(code_cell_num: int, nb) -> list[str]:
 
 def get_markdown_before_code(code_cell_num: int, nb) -> list[str]:
     """
-    Return all markdown cells immediately before the specified code cell.
+    Return all markdown cells that appear before the specified code cell,
+    regardless of other code cells in between.
     """
     markdown_cells = []
-    temp_markdown = []
 
     for cell in nb["cells"]:
-        if cell["cell_type"] == "markdown":
-            temp_markdown.append(cell["source"])
-        elif cell["cell_type"] == "code":
-            if cell.get("execution_count") == code_cell_num:
-                markdown_cells = temp_markdown
-                break
-            temp_markdown = []  # Reset when we hit a different code cell
+        if cell["cell_type"] == "code" and cell.get("execution_count") == code_cell_num:
+            # Found the target code cell, return all markdown cells collected so far
+            return markdown_cells
+        elif cell["cell_type"] == "markdown":
+            markdown_cells.append(cell["source"])
 
-    return markdown_cells
+    # If we didn't find the code cell, return empty list
+    return []
 
 
 def get_markdown_between_codes(start_code: int, end_code: int, nb) -> list[str]:
@@ -266,7 +265,7 @@ class NotebookMagic(Magics):
             else:
                 my_notebook_file = latest_notebook_file(self.notebook_path)
                 print(
-                    f"No default notebook is set. Using the most recently modified file in %nbpath."
+                    "No default notebook is set. Using the most recently modified file in %nbpath."
                 )
                 return str(my_notebook_file)
         elif "--reset" in arg_s:
@@ -510,7 +509,7 @@ class NotebookMagic(Magics):
 
         # Join contents without header comment for markdown
         contents = "\n\n".join(contents)
-        
+
         self.shell.set_next_input(contents, replace=True)
 
     @line_magic
@@ -518,8 +517,8 @@ class NotebookMagic(Magics):
         """Load markdown cells based on their position relative to code cells.
         Usage:
 
-          %mdat after:n     - Get markdown cells after code cell n
-          %mdat before:n    - Get markdown cells before code cell n
+          %mdat after:n     - Get markdown cells after code cell n (until next code cell)
+          %mdat before:n    - Get ALL markdown cells before code cell n
           %mdat between:n:m - Get markdown cells between code cells n and m
 
         or with a specific notebook file:
@@ -622,7 +621,7 @@ class NotebookMagic(Magics):
 
         # Join contents without header comment for markdown
         contents = "\n\n".join(contents)
-        
+
         self.shell.set_next_input(contents, replace=True)
 
 
