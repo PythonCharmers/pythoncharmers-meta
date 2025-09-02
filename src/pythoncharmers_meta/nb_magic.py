@@ -1,12 +1,16 @@
 """
-An IPython extension that (currently) registers a single "magic": %nb
+An IPython extension that registers notebook cell magics: %nb and %md
 
-This grabs a few cells from a notebook on the filesystem, defaulting to the
-most recently modified notebook in the highest-numbered ~/Trainer_XYZ/ folder.
+%nb: Grabs code cells from a notebook on the filesystem
+%md: Grabs markdown cells from a notebook on the filesystem
 
-For help on the magic, run:
+Both default to the most recently modified notebook in the highest-numbered
+~/Trainer_XYZ/ folder.
+
+For help on the magics, run:
 
     %nb?
+    %md?
 
 """
 
@@ -52,12 +56,99 @@ def get_cell_nums(ranges_str: str) -> Iterable[int]:
 
 
 def get_cell_input(cell_number: int, nb):
-    "Return input for the given cell in the given notebook"
+    "Return input for the given code cell in the given notebook"
     if not isinstance(cell_number, int):
         raise ValueError("pass an integer cell number")
     for cell in nb["cells"]:
         if "execution_count" in cell and cell["execution_count"] == cell_number:
             return cell["source"]
+
+
+def get_markdown_cells(nb) -> list[tuple[int, str]]:
+    """
+    Return a list of (index, source) tuples for all markdown cells in the notebook.
+    Index is 1-based for user-friendliness.
+    """
+    markdown_cells = []
+    md_index = 1
+    for cell in nb["cells"]:
+        if cell["cell_type"] == "markdown":
+            markdown_cells.append((md_index, cell["source"]))
+            md_index += 1
+    return markdown_cells
+
+
+def get_markdown_cell_by_index(cell_index: int, nb) -> Optional[str]:
+    """
+    Return the source of the markdown cell at the given 1-based index.
+    Returns None if index is out of range.
+    """
+    markdown_cells = get_markdown_cells(nb)
+    if 1 <= cell_index <= len(markdown_cells):
+        return markdown_cells[cell_index - 1][1]
+    return None
+
+
+def get_markdown_after_code(code_cell_num: int, nb) -> list[str]:
+    """
+    Return all markdown cells immediately after the specified code cell,
+    stopping at the next code cell or end of notebook.
+    """
+    found_code = False
+    markdown_cells = []
+
+    for cell in nb["cells"]:
+        if cell["cell_type"] == "code" and cell.get("execution_count") == code_cell_num:
+            found_code = True
+            continue
+
+        if found_code:
+            if cell["cell_type"] == "markdown":
+                markdown_cells.append(cell["source"])
+            elif cell["cell_type"] == "code":
+                break  # Stop at next code cell
+
+    return markdown_cells
+
+
+def get_markdown_before_code(code_cell_num: int, nb) -> list[str]:
+    """
+    Return all markdown cells immediately before the specified code cell.
+    """
+    markdown_cells = []
+    temp_markdown = []
+
+    for cell in nb["cells"]:
+        if cell["cell_type"] == "markdown":
+            temp_markdown.append(cell["source"])
+        elif cell["cell_type"] == "code":
+            if cell.get("execution_count") == code_cell_num:
+                markdown_cells = temp_markdown
+                break
+            temp_markdown = []  # Reset when we hit a different code cell
+
+    return markdown_cells
+
+
+def get_markdown_between_codes(start_code: int, end_code: int, nb) -> list[str]:
+    """
+    Return all markdown cells between two code cells (exclusive).
+    """
+    found_start = False
+    markdown_cells = []
+
+    for cell in nb["cells"]:
+        if cell["cell_type"] == "code":
+            if cell.get("execution_count") == start_code:
+                found_start = True
+                continue
+            elif cell.get("execution_count") == end_code:
+                break
+
+        if found_start and cell["cell_type"] == "markdown":
+            markdown_cells.append(cell["source"])
+
+    return markdown_cells
 
 
 def paths_sorted_by_mtime(paths: Iterable[Path], ascending: bool = True) -> list[Path]:
@@ -111,18 +202,12 @@ def latest_notebook_file(folder_path: Path) -> Path:
     return path
 
 
-def course_num_from_trainer_path(trainer_path: Path) -> int:
+def course_num_from_trainer_path(trainer_path: Path) -> str:
     """
-    Returns a course number like 612 as an integer
+    Returns a course 'number' like 612 or 705b as a string
     from a Trainer path like `Path('/home/jovyan/Trainer_612')`
-
-    If the string after the _ (e.g. "612") is not possible to convert to a
-    number, returns 0.
     """
-    try:
-        return int(trainer_path.name.split("_")[1])
-    except Exception:
-        return 0
+    return trainer_path.name.split("_")[1]
 
 
 @magics_class
@@ -287,7 +372,256 @@ class NotebookMagic(Magics):
 
         self.shell.set_next_input(contents, replace=True)
 
+    @line_magic
+    def md(self, arg_s):
+        """Load markdown cells into the current frontend.
+        Usage:
+
+          %md n1-n2 n3-n4 n5 ...
+
+        or:
+
+          %md --list
+
+        or:
+
+          %md -f ipynb_filename n1-n2 n3-n4 n5 ...
+
+          where `ipynb_filename` is a filename of a Jupyter notebook
+
+        Ranges:
+
+          Ranges are space-separated and inclusive of the endpoint.
+          Numbers refer to the sequential index of markdown cells (1st, 2nd, 3rd, etc.)
+
+          Example: 1 3 5-7
+
+          This gives the contents of markdown cells: 1, 3, 5, 6, 7.
+
+        Special options:
+
+          --list: Show a numbered list of all markdown cells with previews
+
+        Optional arguments:
+
+          -f ipynb_filename: the filename of a Jupyter notebook (optionally
+              omitting the .ipynb extension). Default is the most recently
+              modified .ipynb file in the highest-numbered ~/Trainer_XYZ/
+              folder.
+
+          -v [notebook_version]: default is 4
+
+        Note: After running this magic, convert the cell to Markdown type
+        using Ctrl+M, M (or Esc, M) in Jupyter.
+        """
+        opts, args = self.parse_options(arg_s, "v:f:", mode="list")
+
+        # Handle --list option
+        if "--list" in arg_s:
+            # Determine notebook file
+            if "f" in opts:
+                fname = opts["f"]
+                if not fname.endswith(".ipynb"):
+                    fname += ".ipynb"
+                my_notebook_file = Path(fname)
+                if not my_notebook_file.exists():
+                    raise UsageError(
+                        f"File {my_notebook_file.absolute()} does not exist"
+                    )
+            else:
+                if self.notebook_file_override is not None:
+                    my_notebook_file = self.notebook_file_override
+                else:
+                    try:
+                        my_notebook_file = latest_notebook_file(self.notebook_path)
+                    except Exception:
+                        raise UsageError(
+                            "No default notebook set (%nbfile); no notebook filename specified (-f option); and cannot infer it."
+                        )
+
+            version = int(opts.get("v", 4))
+            nb = nbformat.read(my_notebook_file, as_version=version)
+
+            markdown_cells = get_markdown_cells(nb)
+            if not markdown_cells:
+                print("No markdown cells found in the notebook.")
+                return
+
+            print(f"Markdown cells in {my_notebook_file.name}:")
+            print("-" * 50)
+            for idx, source in markdown_cells:
+                preview = source[:100].replace("\n", " ")
+                if len(source) > 100:
+                    preview += "..."
+                print(f"{idx:3}: {preview}")
+            return
+
+        # Normal operation - get specific cells
+        if "f" in opts:
+            fname = opts["f"]
+            if not fname.endswith(".ipynb"):
+                fname += ".ipynb"
+            my_notebook_file = Path(fname)
+            if not my_notebook_file.exists():
+                raise UsageError(f"File {my_notebook_file.absolute()} does not exist")
+        else:
+            if self.notebook_file_override is not None:
+                my_notebook_file = self.notebook_file_override
+            else:
+                try:
+                    my_notebook_file = latest_notebook_file(self.notebook_path)
+                except Exception:
+                    raise UsageError(
+                        "No default notebook set (%nbfile); no notebook filename specified (-f option); and cannot infer it."
+                    )
+
+        version = int(opts.get("v", 4))
+
+        # Remove --list from args if present
+        args = [arg for arg in args if arg != "--list"]
+
+        if not args:
+            raise UsageError(
+                "Please specify markdown cell numbers or use --list to see available cells"
+            )
+
+        cellranges = " ".join(args)
+
+        # Load notebook
+        nb = nbformat.read(my_notebook_file, as_version=version)
+
+        # Get cell numbers
+        cellnums = list(get_cell_nums(cellranges))
+
+        # Get markdown cell contents
+        contents = []
+        for cellnum in cellnums:
+            content = get_markdown_cell_by_index(cellnum, nb)
+            if content is not None:
+                contents.append(content)
+
+        if not contents:
+            warnings.warn(f"No markdown cells found for indices: {cellnums}")
+            return
+
+        # Join contents and add header comment
+        contents = "\n\n".join(contents)
+        contents = "# %md {}\n".format(arg_s) + contents
+
+        self.shell.set_next_input(contents, replace=True)
+
+    @line_magic
+    def mdat(self, arg_s):
+        """Load markdown cells based on their position relative to code cells.
+        Usage:
+
+          %mdat after:n     - Get markdown cells after code cell n
+          %mdat before:n    - Get markdown cells before code cell n
+          %mdat between:n:m - Get markdown cells between code cells n and m
+
+        or with a specific notebook file:
+
+          %mdat -f ipynb_filename after:n
+
+        Examples:
+
+          %mdat after:3      - Get all markdown cells after code cell 3
+          %mdat before:5     - Get all markdown cells before code cell 5
+          %mdat between:2:4  - Get all markdown cells between code cells 2 and 4
+
+        Optional arguments:
+
+          -f ipynb_filename: the filename of a Jupyter notebook (optionally
+              omitting the .ipynb extension). Default is the most recently
+              modified .ipynb file in the highest-numbered ~/Trainer_XYZ/
+              folder.
+
+          -v [notebook_version]: default is 4
+
+        Note: After running this magic, convert the cell to Markdown type
+        using Ctrl+M, M (or Esc, M) in Jupyter.
+        """
+        opts, args = self.parse_options(arg_s, "v:f:", mode="list")
+
+        if "f" in opts:
+            fname = opts["f"]
+            if not fname.endswith(".ipynb"):
+                fname += ".ipynb"
+            my_notebook_file = Path(fname)
+            if not my_notebook_file.exists():
+                raise UsageError(f"File {my_notebook_file.absolute()} does not exist")
+        else:
+            if self.notebook_file_override is not None:
+                my_notebook_file = self.notebook_file_override
+            else:
+                try:
+                    my_notebook_file = latest_notebook_file(self.notebook_path)
+                except Exception:
+                    raise UsageError(
+                        "No default notebook set (%nbfile); no notebook filename specified (-f option); and cannot infer it."
+                    )
+
+        version = int(opts.get("v", 4))
+
+        if not args:
+            raise UsageError(
+                "Please specify position (after:n, before:n, or between:n:m)"
+            )
+
+        position_spec = args[0]
+
+        # Load notebook
+        nb = nbformat.read(my_notebook_file, as_version=version)
+
+        # Parse position specification
+        contents = []
+        if position_spec.startswith("after:"):
+            try:
+                code_num = int(position_spec.split(":")[1])
+                markdown_cells = get_markdown_after_code(code_num, nb)
+                contents = markdown_cells
+            except (ValueError, IndexError):
+                raise UsageError(
+                    "Invalid format. Use: after:n where n is a code cell number"
+                )
+
+        elif position_spec.startswith("before:"):
+            try:
+                code_num = int(position_spec.split(":")[1])
+                markdown_cells = get_markdown_before_code(code_num, nb)
+                contents = markdown_cells
+            except (ValueError, IndexError):
+                raise UsageError(
+                    "Invalid format. Use: before:n where n is a code cell number"
+                )
+
+        elif position_spec.startswith("between:"):
+            try:
+                parts = position_spec.split(":")
+                start_code = int(parts[1])
+                end_code = int(parts[2])
+                markdown_cells = get_markdown_between_codes(start_code, end_code, nb)
+                contents = markdown_cells
+            except (ValueError, IndexError):
+                raise UsageError(
+                    "Invalid format. Use: between:n:m where n and m are code cell numbers"
+                )
+
+        else:
+            raise UsageError(
+                "Position must be specified as after:n, before:n, or between:n:m"
+            )
+
+        if not contents:
+            warnings.warn(f"No markdown cells found for position: {position_spec}")
+            return
+
+        # Join contents and add header comment
+        contents = "\n\n".join(contents)
+        contents = "# %mdat {}\n".format(arg_s) + contents
+
+        self.shell.set_next_input(contents, replace=True)
+
 
 # In order to actually use these magics, you must register them with a
 # running IPython. See load_ipython_extension() in __init__.py.
-

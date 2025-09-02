@@ -10,23 +10,25 @@ You can load the IPython extension like so:
 assuming the pythoncharmers_meta packages has been installed system-wide.
 
 This package depends on packages used in Python Charmers training courses. It
-also provides an IPython extension that enables three new magic commands:
+also provides an IPython extension that enables several magic commands:
 
-- %nb
-- %ai
+- %nb: Grab code cells from a notebook
+- %md: Grab markdown cells from a notebook (by sequential index)
+- %mdat: Grab markdown cells by position relative to code cells
+- %ai: Invoke the `llm` package for quick use of an LLM like gpt-4o-mini
 
-The %nb magic is for grabbing a few code or markdown cells (respectively) from
-a notebook on the filesystem. It defaults to the most recently modified
-notebook in the latest ~/Trainer_XYZ folder.
-
-The %ai magic invokes the `llm` package for quick use of an LLM like gpt-4o-mini.
+The %nb, %md, and %mdat magics grab cells from a notebook on the filesystem,
+defaulting to the most recently modified notebook in the latest ~/Trainer_XYZ folder.
 
 For help on the magics, add a trailing question mark. For example:
 
     %nb?
+    %md?
+    %mdat?
+    %ai?
 
 Two additional magics are available for getting and setting the current
-path and/or file that %nb queries. To get help on these, run:
+path and/or file that %nb, %md, and %mdat query. To get help on these, run:
 
     %nbfile?
     %nbpath?
@@ -34,6 +36,7 @@ path and/or file that %nb queries. To get help on these, run:
 """
 
 from .nb_magic import NotebookMagic
+
 try:
     from .ai_magic import AIMagic
 except Exception as e:
@@ -54,5 +57,3 @@ def load_ipython_extension(ipython):
         ipython.register_magics(AIMagic)
     except Exception as e:
         print(e)
-
-
