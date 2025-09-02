@@ -219,7 +219,7 @@ class NotebookMagic(Magics):
         self.notebook_path = latest_trainer_path()
 
         # If notebook_file_override is set, use this notebook file for
-        # %nb. If notebook_file_override is None, use the latest notebook
+        # %code. If notebook_file_override is None, use the latest notebook
         # in the notebook_path (given by %nbpath):
         self.notebook_file_override = None
 
@@ -228,13 +228,13 @@ class NotebookMagic(Magics):
         """
         Usage:
             %nbpath
-            Show the folder path being queried for %nb
+            Show the folder path being queried for %code and %md
 
             %nbpath ~/Trainer_614
-            Set ~/Trainer_614 as the folder to query for %nb
+            Set ~/Trainer_614 as the folder to query for %code and %md
 
             %nbpath --reset
-            Reset the folder being queried for %nb to the highest-numbered ~/Trainer_XYZ folder.
+            Reset the folder being queried for %code and %md to the highest-numbered ~/Trainer_XYZ folder.
         """
         if arg_s == "":
             return str(self.notebook_path)
@@ -252,10 +252,10 @@ class NotebookMagic(Magics):
         """
         Usage:
             %nbfile
-            Show the file in %nbpath being queried for %nb
+            Show the file in %nbpath being queried for %code and %md
 
             %nbfile "Training day 1.ipynb"
-            Set the notebook file in %nbpath to be queried for %nb
+            Set the notebook file in %nbpath to be queried for %code and %md
 
             %nbfile --reset
             Reset the notebook file to the most recently modified
@@ -424,16 +424,59 @@ class NotebookMagic(Magics):
           -v [notebook_version]: default is 4
 
         Note: After running this magic, convert the cell to Markdown type
-        using Ctrl+M, M (or Esc, M) in Jupyter. Unlike %nb, this command
-        does not add a comment line at the top.
+        using Esc M in Jupyter. Unlike %code, this command does not add a
+        comment line at the top.
         """
+        # Store original arg_s for better error messages
+        original_arg_s = arg_s
+        
+        # Check for common mistakes (but not --list itself!)
+        if "--list" not in arg_s and ("--lsit" in arg_s or "--lst" in arg_s or "--lis" in arg_s or "--lits" in arg_s):
+            raise UsageError(
+                f"Invalid option. Did you mean '--list'?\n"
+                f"Usage: %md --list  or  %md 1-3 5 7\n"
+                f"See %md? for full documentation."
+            )
+        
+        # Check if user is trying to use %mdat syntax
+        if any(arg_s.startswith(prefix) for prefix in ["after:", "before:", "between:"]):
+            raise UsageError(
+                f"'{arg_s}' is not valid for %md.\n"
+                f"For position-based selection, use %mdat:\n"
+                f"  %mdat {arg_s}\n"
+                f"For %md, use cell indices:\n"
+                f"  %md 1-3     # Get markdown cells 1, 2, and 3\n"
+                f"  %md --list  # List all markdown cells"
+            )
+        
         # Check for --list before parse_options
         list_mode = "--list" in arg_s
         if list_mode:
             # Remove --list from arg_s before parsing options
             arg_s = arg_s.replace("--list", "").strip()
-
-        opts, args = self.parse_options(arg_s, "v:f:", mode="list")
+        
+        try:
+            opts, args = self.parse_options(arg_s, "v:f:", mode="list")
+        except UsageError as e:
+            # Check if it's an unrecognized option error
+            error_msg = str(e)
+            if "not recognized" in error_msg:
+                # Extract the bad option if possible
+                import re
+                match = re.search(r'option (\S+) not recognized', error_msg)
+                if match:
+                    bad_option = match.group(1)
+                    raise UsageError(
+                        f"Invalid option '{bad_option}'.\n"
+                        f"Valid options for %md:\n"
+                        f"  --list           Show all markdown cells with previews\n"
+                        f"  -f filename      Specify notebook file\n"
+                        f"  -v version       Notebook version (default: 4)\n"
+                        f"Examples:\n"
+                        f"  %md 1-3 5       Get cells 1,2,3 and 5\n"
+                        f"  %md --list      List all markdown cells"
+                    )
+            raise
 
         # Handle --list option
         if list_mode:
@@ -498,10 +541,26 @@ class NotebookMagic(Magics):
 
         if not args:
             raise UsageError(
-                "Please specify markdown cell numbers or use --list to see available cells"
+                "No cell indices specified.\n"
+                "Usage examples:\n"
+                "  %md 1           # Get first markdown cell\n"
+                "  %md 1-3 5       # Get cells 1,2,3 and 5\n"
+                "  %md --list      # List all markdown cells\n"
+                "See %md? for full documentation."
             )
 
         cellranges = " ".join(args)
+        
+        # Additional validation for common mistakes
+        for arg in args:
+            if ":" in arg:
+                raise UsageError(
+                    f"'{arg}' contains ':' which is not valid for %md.\n"
+                    f"For position-based selection (after:, before:, between:), use %mdat:\n"
+                    f"  %mdat {arg}\n"
+                    f"For %md, use numeric indices:\n"
+                    f"  %md 1-3        # Get cells 1, 2, and 3"
+                )
 
         # Load notebook
         nb = nbformat.read(my_notebook_file, as_version=version)
@@ -517,7 +576,29 @@ class NotebookMagic(Magics):
                 contents.append(content)
 
         if not contents:
-            warnings.warn(f"No markdown cells found for indices: {cellnums}")
+            # Get total number of markdown cells for better error message
+            all_markdown = get_markdown_cells(nb)
+            total_md_cells = len(all_markdown)
+            
+            if total_md_cells == 0:
+                raise UsageError(
+                    f"No markdown cells found in {my_notebook_file.name}.\n"
+                    f"This notebook contains only code cells."
+                )
+            else:
+                invalid_indices = [num for num in cellnums if num > total_md_cells or num < 1]
+                if invalid_indices:
+                    raise UsageError(
+                        f"Invalid markdown cell indices: {invalid_indices}\n"
+                        f"This notebook has {total_md_cells} markdown cell(s) (numbered 1-{total_md_cells}).\n"
+                        f"Use '%md --list' to see all available markdown cells."
+                    )
+                else:
+                    # This shouldn't happen, but just in case
+                    raise UsageError(
+                        f"Could not retrieve markdown cells {cellnums}.\n"
+                        f"Use '%md --list' to see available cells."
+                    )
             return
 
         # Join contents without header comment for markdown
@@ -554,8 +635,8 @@ class NotebookMagic(Magics):
           -v [notebook_version]: default is 4
 
         Note: After running this magic, convert the cell to Markdown type
-        using Ctrl+M, M (or Esc, M) in Jupyter. Unlike %nb, this command
-        does not add a comment line at the top.
+        using Esc M in Jupyter. Unlike %nb, this command does not add a comment
+        line at the top.
         """
         opts, args = self.parse_options(arg_s, "v:f:", mode="list")
 
