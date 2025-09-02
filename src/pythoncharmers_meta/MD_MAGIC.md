@@ -6,9 +6,11 @@ Training participants need a way to copy Markdown cells from trainer notebooks d
 
 ## Design Considerations
 
-### Current %nb Magic Limitations
-- Only handles code cells (identified by execution_count)
-- Returns content as code, requiring manual cell type conversion for Markdown
+### Current Magic Commands
+- %code (formerly %nb): Handles code cells (identified by execution_count)
+- %md: Handles markdown cells by sequential index
+- %mdat: Handles markdown cells by position relative to code cells
+- %nb: Kept as alias for %code for backward compatibility
 
 ### Challenges with Markdown Cells
 1. **No visible numbering**: Markdown cells don't have execution counts
@@ -148,10 +150,11 @@ Return both code and Markdown versions, let user choose.
 
 ## Migration Path
 
-1. Keep existing `%nb` for code cells
-2. Add `%md` for Markdown cells  
-3. Document both in help text
-4. Consider unified `%cell` magic in future that handles both types
+1. Rename `%nb` to `%code` as the canonical command for code cells
+2. Keep `%nb` as an alias for backward compatibility
+3. Add `%md` for Markdown cells by index
+4. Add `%mdat` for position-based Markdown cell retrieval
+5. Document all commands in help text
 
 ## Usage Examples
 
@@ -167,7 +170,8 @@ Return both code and Markdown versions, let user choose.
 
 ### Participant commands:
 ```python
-%nb 1          # Get code cell 1
+%code 1        # Get code cell 1 (preferred)
+%nb 1          # Same as %code 1 (backward compatibility)
 %md 1          # Get "# Data Analysis Workshop"
 %md 2-3        # Get "## Prerequisites" and "### Understanding the dataset"
 %mdat after:1  # Get markdown after code cell 1

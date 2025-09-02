@@ -1,16 +1,19 @@
 """
-An IPython extension that registers notebook cell magics: %nb and %md
+An IPython extension that registers notebook cell magics: %code, %md, and %mdat
 
-%nb: Grabs code cells from a notebook on the filesystem
-%md: Grabs markdown cells from a notebook on the filesystem
+%code: Grabs code cells from a notebook on the filesystem
+%md: Grabs markdown cells from a notebook on the filesystem (by index)
+%mdat: Grabs markdown cells by position relative to code cells
+%nb: Alias for %code (for backward compatibility)
 
-Both default to the most recently modified notebook in the highest-numbered
+All default to the most recently modified notebook in the highest-numbered
 ~/Trainer_XYZ/ folder.
 
 For help on the magics, run:
 
-    %nb?
+    %code?
     %md?
+    %mdat?
 
 """
 
@@ -288,15 +291,15 @@ class NotebookMagic(Magics):
             print(f"Set default notebook file to {self.notebook_file_override}")
 
     @line_magic
-    def nb(self, arg_s):
-        """Load code into the current frontend.
+    def code(self, arg_s):
+        """Load code cells from a notebook into the current frontend.
         Usage:
 
-          %nb n1-n2 n3-n4 n5 ...
+          %code n1-n2 n3-n4 n5 ...
 
         or:
 
-          %nb -f ipynb_filename n1-n2 n3-n4 n5 ...
+          %code -f ipynb_filename n1-n2 n3-n4 n5 ...
 
           where `ipynb_filename` is a filename of a Jupyter notebook
 
@@ -367,9 +370,19 @@ class NotebookMagic(Magics):
 
         # print(*contents, sep='\n\n')
         contents = "\n\n".join(contents)
-        contents = "# %nb {}\n".format(arg_s) + contents
+        contents = "# %code {}\n".format(arg_s) + contents
 
         self.shell.set_next_input(contents, replace=True)
+
+    @line_magic
+    def nb(self, arg_s):
+        """Alias for %code (for backward compatibility).
+
+        Load code cells from a notebook into the current frontend.
+        See %code? for full documentation.
+        """
+        # Simply call the code method with the same arguments
+        return self.code(arg_s)
 
     @line_magic
     def md(self, arg_s):
