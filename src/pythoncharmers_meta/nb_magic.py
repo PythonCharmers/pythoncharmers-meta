@@ -1,9 +1,8 @@
 """
-An IPython extension that registers notebook cell magics: %code, %md, and %mdat
+An IPython extension that registers notebook cell magics: %code and %md
 
 %code: Grabs code cells from a notebook on the filesystem
-%md: Grabs markdown cells from a notebook on the filesystem (by index)
-%mdat: Grabs markdown cells by position relative to code cells
+%md: Grabs markdown cells from a notebook (by index or relative to code cells)
 %nb: Alias for %code (for backward compatibility)
 
 All default to the most recently modified notebook in the highest-numbered
@@ -13,7 +12,6 @@ For help on the magics, run:
 
     %code?
     %md?
-    %mdat?
 
 """
 
@@ -151,6 +149,117 @@ def get_markdown_between_codes(start_code: int, end_code: int, nb) -> list[str]:
             markdown_cells.append(cell["source"])
 
     return markdown_cells
+
+
+def get_last_code_cell_with_number(code_num: int, nb) -> int:
+    """
+    Find the last code cell with the given execution_count.
+    Returns the index of that cell in the notebook, or -1 if not found.
+    """
+    last_index = -1
+    for i, cell in enumerate(nb["cells"]):
+        if cell["cell_type"] == "code" and cell.get("execution_count") == code_num:
+            last_index = i
+    return last_index
+
+
+def parse_md_range(range_str: str, nb) -> list[str]:
+    """
+    Parse a range specification and return the corresponding markdown cells.
+
+    Supports:
+    - "-N": All markdown before code cell N (using last occurrence)
+    - "N-": All markdown after code cell N (using last occurrence)
+    - "N-M": All markdown between code cells N and M (using last occurrences)
+    - "mN": Markdown cell at index N
+    - "mN-": Markdown cells from index N onwards
+    - "mN-mM": Markdown cells from index N to M
+    - "-mN": Markdown cells from beginning to index N
+    """
+    range_str = range_str.strip()
+    markdown_contents = []
+
+    # Handle markdown index syntax (mN, mN-mM, etc.)
+    if "m" in range_str.lower():
+        # Remove 'm' prefix and parse as regular range
+        clean_range = range_str.lower().replace("m", "")
+
+        # Handle different patterns
+        if clean_range.startswith("-"):
+            # "-N" means from beginning to N
+            end_num = int(clean_range[1:])
+            for i in range(1, end_num + 1):
+                content = get_markdown_cell_by_index(i, nb)
+                if content:
+                    markdown_contents.append(content)
+        elif clean_range.endswith("-"):
+            # "N-" means from N to end
+            start_num = int(clean_range[:-1])
+            all_md = get_markdown_cells(nb)
+            for i in range(start_num, len(all_md) + 1):
+                content = get_markdown_cell_by_index(i, nb)
+                if content:
+                    markdown_contents.append(content)
+        elif "-" in clean_range:
+            # "N-M" means from N to M
+            parts = clean_range.split("-")
+            start_num = int(parts[0]) if parts[0] else 1
+            end_num = int(parts[1]) if parts[1] else len(get_markdown_cells(nb))
+            for i in range(start_num, end_num + 1):
+                content = get_markdown_cell_by_index(i, nb)
+                if content:
+                    markdown_contents.append(content)
+        else:
+            # Single number
+            content = get_markdown_cell_by_index(int(clean_range), nb)
+            if content:
+                markdown_contents.append(content)
+
+    # Handle code-relative syntax (-N, N-, N-M)
+    elif range_str.startswith("-"):
+        # "-N" means all markdown before code cell N
+        code_num = int(range_str[1:])
+        # Find the last occurrence of this code cell number
+        last_idx = get_last_code_cell_with_number(code_num, nb)
+        if last_idx >= 0:
+            # Get all markdown cells before this position
+            for i, cell in enumerate(nb["cells"][:last_idx]):
+                if cell["cell_type"] == "markdown":
+                    markdown_contents.append(cell["source"])
+
+    elif range_str.endswith("-"):
+        # "N-" means all markdown after code cell N
+        code_num = int(range_str[:-1])
+        # Find the last occurrence of this code cell number
+        last_idx = get_last_code_cell_with_number(code_num, nb)
+        if last_idx >= 0:
+            # Get all markdown cells after this position
+            for i, cell in enumerate(nb["cells"][last_idx + 1 :]):
+                if cell["cell_type"] == "markdown":
+                    markdown_contents.append(cell["source"])
+
+    elif "-" in range_str:
+        # "N-M" means markdown between code cells N and M
+        parts = range_str.split("-")
+        start_code = int(parts[0])
+        end_code = int(parts[1])
+
+        # Find last occurrences of both code cell numbers
+        start_idx = get_last_code_cell_with_number(start_code, nb)
+        end_idx = get_last_code_cell_with_number(end_code, nb)
+
+        if start_idx >= 0 and end_idx >= 0 and start_idx < end_idx:
+            # Get markdown cells between these positions
+            for i in range(start_idx + 1, end_idx):
+                cell = nb["cells"][i]
+                if cell["cell_type"] == "markdown":
+                    markdown_contents.append(cell["source"])
+
+    else:
+        # Plain code cell number without range - not valid in new syntax
+        raise ValueError(f"Invalid range specification: {range_str}")
+
+    return markdown_contents
 
 
 def paths_sorted_by_mtime(paths: Iterable[Path], ascending: bool = True) -> list[Path]:
@@ -386,84 +495,141 @@ class NotebookMagic(Magics):
 
     @line_magic
     def md(self, arg_s):
-        """Load markdown cells into the current frontend.
+        """Load markdown cells from a notebook using flexible selection syntax.
+
         Usage:
 
-          %md n1-n2 n3-n4 n5 ...
-
-        or:
-
+          %md [ranges...]
           %md --list
+          %md -f notebook.ipynb [ranges...]
 
-        or:
+        Range Syntax:
 
-          %md -f ipynb_filename n1-n2 n3-n4 n5 ...
+          Code-relative selections (refers to last occurrence of code cell number):
+            -N       All markdown cells before code cell N
+            N-       All markdown cells after code cell N
+            N-M      All markdown cells between code cells N and M
 
-          where `ipynb_filename` is a filename of a Jupyter notebook
+          Markdown index selections:
+            mN       Markdown cell number N
+            mN-mM    Markdown cells N through M (inclusive)
+            mN-      Markdown cells from N onwards
+            -mN      Markdown cells from beginning through N
 
-        Ranges:
+        Examples:
 
-          Ranges are space-separated and inclusive of the endpoint.
-          Numbers refer to the sequential index of markdown cells (1st, 2nd, 3rd, etc.)
-
-          Example: 1 3 5-7
-
-          This gives the contents of markdown cells: 1, 3, 5, 6, 7.
-
-        Special options:
-
-          --list: Show a numbered list of all markdown cells with previews
+          %md -1 2-4 8-      # Before code 1, between code 2-4, after code 8
+          %md m1 m3-m5       # Markdown cells 1, 3, 4, and 5
+          %md m2- -1         # Markdown from cell 2 onwards, plus all before code 1
+          %md --list         # List all markdown cells with numbers
 
         Optional arguments:
 
-          -f ipynb_filename: the filename of a Jupyter notebook (optionally
-              omitting the .ipynb extension). Default is the most recently
-              modified .ipynb file in the highest-numbered ~/Trainer_XYZ/
-              folder.
+          -f filename      Specify notebook file (default: latest in Trainer folder)
+          -v version       Notebook version (default: 4)
+          --list          Show numbered list of all markdown cells
 
-          -v [notebook_version]: default is 4
-
-        Note: After running this magic, convert the cell to Markdown type
-        using Esc M in Jupyter. Unlike %code, this command does not add a
-        comment line at the top.
+        Note: After running, convert the cell to Markdown with Esc M in Jupyter.
         """
         # Store original arg_s for better error messages
         original_arg_s = arg_s
-        
+
         # Check for common mistakes (but not --list itself!)
-        if "--list" not in arg_s and ("--lsit" in arg_s or "--lst" in arg_s or "--lis" in arg_s or "--lits" in arg_s):
+        if "--list" not in arg_s and (
+            "--lsit" in arg_s
+            or "--lst" in arg_s
+            or "--lis" in arg_s
+            or "--lits" in arg_s
+        ):
             raise UsageError(
                 f"Invalid option. Did you mean '--list'?\n"
-                f"Usage: %md --list  or  %md 1-3 5 7\n"
+                f"Usage: %md --list  or  %md m1-m3  or  %md -1 2-\n"
                 f"See %md? for full documentation."
             )
-        
-        # Check if user is trying to use %mdat syntax
-        if any(arg_s.startswith(prefix) for prefix in ["after:", "before:", "between:"]):
-            raise UsageError(
-                f"'{arg_s}' is not valid for %md.\n"
-                f"For position-based selection, use %mdat:\n"
-                f"  %mdat {arg_s}\n"
-                f"For %md, use cell indices:\n"
-                f"  %md 1-3     # Get markdown cells 1, 2, and 3\n"
-                f"  %md --list  # List all markdown cells"
+
+        # Check if user is trying to use old %mdat syntax
+        if any(
+            arg_s.startswith(prefix) for prefix in ["after:", "before:", "between:"]
+        ):
+            # Convert old syntax to new
+            suggestion = (
+                arg_s.replace("after:", "")
+                .replace("before:", "-")
+                .replace("between:", "")
             )
-        
+            if "between:" in arg_s:
+                parts = arg_s.split(":")[1:]
+                if len(parts) >= 2:
+                    suggestion = f"{parts[0]}-{parts[1]}"
+            raise UsageError(
+                f"The syntax '{arg_s}' has been replaced.\n"
+                f"New syntax: %md {suggestion}\n"
+                f"Examples:\n"
+                f"  %md -1        # All markdown before code cell 1\n"
+                f"  %md 3-        # All markdown after code cell 3\n"
+                f"  %md 2-4       # All markdown between code cells 2 and 4\n"
+            )
+
         # Check for --list before parse_options
         list_mode = "--list" in arg_s
         if list_mode:
             # Remove --list from arg_s before parsing options
             arg_s = arg_s.replace("--list", "").strip()
-        
+
+        # Pre-process to handle ranges that start with - (like -1, -5)
+        # which would otherwise be interpreted as options
+        import re
+
+        parts = arg_s.split()
+        processed_parts = []
+        i = 0
+        while i < len(parts):
+            part = parts[i]
+            # Check if this looks like a code-before range (-N where N is a number)
+            # or markdown range from start (-mN)
+            if re.match(r"^-\d+$", part):
+                # This is a range like -1, -5, not an option
+                # Mark it specially so we can restore it after parse_options
+                processed_parts.append(f"BEFORE{part[1:]}")
+            elif re.match(r"^-m\d+$", part, re.IGNORECASE):
+                # This is a range like -m3, not an option
+                processed_parts.append(f"MDBEFORE{part[2:]}")
+            elif part == "-f" and i + 1 < len(parts):
+                # Keep -f and its argument together
+                processed_parts.append(part)
+                i += 1
+                processed_parts.append(parts[i])
+            elif part == "-v" and i + 1 < len(parts):
+                # Keep -v and its argument together
+                processed_parts.append(part)
+                i += 1
+                processed_parts.append(parts[i])
+            else:
+                processed_parts.append(part)
+            i += 1
+
+        processed_arg_s = " ".join(processed_parts)
+
         try:
-            opts, args = self.parse_options(arg_s, "v:f:", mode="list")
+            opts, args = self.parse_options(processed_arg_s, "v:f:", mode="list")
+            # Restore the -N and -mN syntax in args
+            restored_args = []
+            for arg in args:
+                if arg.startswith("BEFORE"):
+                    restored_args.append("-" + arg[6:])  # BEFORE has 6 chars
+                elif arg.startswith("MDBEFORE"):
+                    restored_args.append("-m" + arg[8:])  # MDBEFORE has 8 chars
+                else:
+                    restored_args.append(arg)
+            args = restored_args
         except UsageError as e:
             # Check if it's an unrecognized option error
             error_msg = str(e)
             if "not recognized" in error_msg:
                 # Extract the bad option if possible
                 import re
-                match = re.search(r'option (\S+) not recognized', error_msg)
+
+                match = re.search(r"option (\S+) not recognized", error_msg)
                 if match:
                     bad_option = match.group(1)
                     raise UsageError(
@@ -473,7 +639,8 @@ class NotebookMagic(Magics):
                         f"  -f filename      Specify notebook file\n"
                         f"  -v version       Notebook version (default: 4)\n"
                         f"Examples:\n"
-                        f"  %md 1-3 5       Get cells 1,2,3 and 5\n"
+                        f"  %md m1-m3 m5    Get markdown cells 1-3 and 5\n"
+                        f"  %md -1 2-       Before code 1, after code 2\n"
                         f"  %md --list      List all markdown cells"
                     )
             raise
@@ -515,7 +682,8 @@ class NotebookMagic(Magics):
                 preview = source[:100].replace("\n", " ")
                 if len(source) > 100:
                     preview += "..."
-                print(f"{idx:3}: {preview}")
+                # Show with m-prefix and extra spacing for 3-digit numbers
+                print(f"  m{idx:<3}: {preview}")
             return
 
         # Normal operation - get specific cells
@@ -541,176 +709,64 @@ class NotebookMagic(Magics):
 
         if not args:
             raise UsageError(
-                "No cell indices specified.\n"
+                "No ranges specified.\n"
                 "Usage examples:\n"
-                "  %md 1           # Get first markdown cell\n"
-                "  %md 1-3 5       # Get cells 1,2,3 and 5\n"
+                "  %md m1          # Get first markdown cell\n"
+                "  %md m1-m3 m5    # Get cells 1-3 and 5\n"
+                "  %md -1          # All markdown before code cell 1\n"
+                "  %md 2-4         # All markdown between code cells 2 and 4\n"
+                "  %md 8-          # All markdown after code cell 8\n"
                 "  %md --list      # List all markdown cells\n"
                 "See %md? for full documentation."
             )
 
-        cellranges = " ".join(args)
-        
-        # Additional validation for common mistakes
-        for arg in args:
-            if ":" in arg:
-                raise UsageError(
-                    f"'{arg}' contains ':' which is not valid for %md.\n"
-                    f"For position-based selection (after:, before:, between:), use %mdat:\n"
-                    f"  %mdat {arg}\n"
-                    f"For %md, use numeric indices:\n"
-                    f"  %md 1-3        # Get cells 1, 2, and 3"
-                )
-
         # Load notebook
         nb = nbformat.read(my_notebook_file, as_version=version)
 
-        # Get cell numbers
-        cellnums = list(get_cell_nums(cellranges))
-
-        # Get markdown cell contents
+        # Parse each range and collect markdown contents
         contents = []
-        for cellnum in cellnums:
-            content = get_markdown_cell_by_index(cellnum, nb)
-            if content is not None:
-                contents.append(content)
+        seen_content = set()  # To avoid duplicates
+
+        for arg in args:
+            try:
+                range_contents = parse_md_range(arg, nb)
+                for content in range_contents:
+                    # Use hash to detect duplicates (same content)
+                    content_hash = hash(content)
+                    if content_hash not in seen_content:
+                        seen_content.add(content_hash)
+                        contents.append(content)
+            except (ValueError, IndexError) as e:
+                # Check if it's a markdown index that's out of range
+                if "m" in arg.lower():
+                    all_markdown = get_markdown_cells(nb)
+                    total_md_cells = len(all_markdown)
+                    raise UsageError(
+                        f"Invalid markdown cell range '{arg}'.\n"
+                        f"This notebook has {total_md_cells} markdown cell(s) (m1-m{total_md_cells}).\n"
+                        f"Use '%md --list' to see all available markdown cells."
+                    )
+                else:
+                    # Code cell reference issue
+                    raise UsageError(
+                        f"Invalid range '{arg}'.\n"
+                        f"Check that the code cell numbers exist in the notebook.\n"
+                        f"Syntax: -N (before code N), N- (after code N), N-M (between codes)\n"
+                        f"Use '%code --list' to see code cells with their numbers."
+                    )
 
         if not contents:
-            # Get total number of markdown cells for better error message
             all_markdown = get_markdown_cells(nb)
-            total_md_cells = len(all_markdown)
-            
-            if total_md_cells == 0:
+            if len(all_markdown) == 0:
                 raise UsageError(
                     f"No markdown cells found in {my_notebook_file.name}.\n"
                     f"This notebook contains only code cells."
                 )
             else:
-                invalid_indices = [num for num in cellnums if num > total_md_cells or num < 1]
-                if invalid_indices:
-                    raise UsageError(
-                        f"Invalid markdown cell indices: {invalid_indices}\n"
-                        f"This notebook has {total_md_cells} markdown cell(s) (numbered 1-{total_md_cells}).\n"
-                        f"Use '%md --list' to see all available markdown cells."
-                    )
-                else:
-                    # This shouldn't happen, but just in case
-                    raise UsageError(
-                        f"Could not retrieve markdown cells {cellnums}.\n"
-                        f"Use '%md --list' to see available cells."
-                    )
-            return
-
-        # Join contents without header comment for markdown
-        contents = "\n\n".join(contents)
-
-        self.shell.set_next_input(contents, replace=True)
-
-    @line_magic
-    def mdat(self, arg_s):
-        """Load markdown cells based on their position relative to code cells.
-        Usage:
-
-          %mdat after:n     - Get markdown cells after code cell n (until next code cell)
-          %mdat before:n    - Get ALL markdown cells before code cell n
-          %mdat between:n:m - Get markdown cells between code cells n and m
-
-        or with a specific notebook file:
-
-          %mdat -f ipynb_filename after:n
-
-        Examples:
-
-          %mdat after:3      - Get all markdown cells after code cell 3
-          %mdat before:5     - Get all markdown cells before code cell 5
-          %mdat between:2:4  - Get all markdown cells between code cells 2 and 4
-
-        Optional arguments:
-
-          -f ipynb_filename: the filename of a Jupyter notebook (optionally
-              omitting the .ipynb extension). Default is the most recently
-              modified .ipynb file in the highest-numbered ~/Trainer_XYZ/
-              folder.
-
-          -v [notebook_version]: default is 4
-
-        Note: After running this magic, convert the cell to Markdown type
-        using Esc M in Jupyter. Unlike %nb, this command does not add a comment
-        line at the top.
-        """
-        opts, args = self.parse_options(arg_s, "v:f:", mode="list")
-
-        if "f" in opts:
-            fname = opts["f"]
-            if not fname.endswith(".ipynb"):
-                fname += ".ipynb"
-            my_notebook_file = Path(fname)
-            if not my_notebook_file.exists():
-                raise UsageError(f"File {my_notebook_file.absolute()} does not exist")
-        else:
-            if self.notebook_file_override is not None:
-                my_notebook_file = self.notebook_file_override
-            else:
-                try:
-                    my_notebook_file = latest_notebook_file(self.notebook_path)
-                except Exception:
-                    raise UsageError(
-                        "No default notebook set (%nbfile); no notebook filename specified (-f option); and cannot infer it."
-                    )
-
-        version = int(opts.get("v", 4))
-
-        if not args:
-            raise UsageError(
-                "Please specify position (after:n, before:n, or between:n:m)"
-            )
-
-        position_spec = args[0]
-
-        # Load notebook
-        nb = nbformat.read(my_notebook_file, as_version=version)
-
-        # Parse position specification
-        contents = []
-        if position_spec.startswith("after:"):
-            try:
-                code_num = int(position_spec.split(":")[1])
-                markdown_cells = get_markdown_after_code(code_num, nb)
-                contents = markdown_cells
-            except (ValueError, IndexError):
                 raise UsageError(
-                    "Invalid format. Use: after:n where n is a code cell number"
+                    f"No markdown cells found for the specified ranges.\n"
+                    f"Use '%md --list' to see available markdown cells."
                 )
-
-        elif position_spec.startswith("before:"):
-            try:
-                code_num = int(position_spec.split(":")[1])
-                markdown_cells = get_markdown_before_code(code_num, nb)
-                contents = markdown_cells
-            except (ValueError, IndexError):
-                raise UsageError(
-                    "Invalid format. Use: before:n where n is a code cell number"
-                )
-
-        elif position_spec.startswith("between:"):
-            try:
-                parts = position_spec.split(":")
-                start_code = int(parts[1])
-                end_code = int(parts[2])
-                markdown_cells = get_markdown_between_codes(start_code, end_code, nb)
-                contents = markdown_cells
-            except (ValueError, IndexError):
-                raise UsageError(
-                    "Invalid format. Use: between:n:m where n and m are code cell numbers"
-                )
-
-        else:
-            raise UsageError(
-                "Position must be specified as after:n, before:n, or between:n:m"
-            )
-
-        if not contents:
-            warnings.warn(f"No markdown cells found for position: {position_spec}")
             return
 
         # Join contents without header comment for markdown

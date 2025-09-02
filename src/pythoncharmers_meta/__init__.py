@@ -13,23 +13,21 @@ This package depends on packages used in Python Charmers training courses. It
 also provides an IPython extension that enables several magic commands:
 
 - %code: Grab code cells from a notebook
-- %md: Grab markdown cells from a notebook (by sequential index)
-- %mdat: Grab markdown cells by position relative to code cells
+- %md: Grab markdown cells (by index or relative to code cells)
 - %nb: Alias for %code (for backward compatibility)
 - %ai: Invoke the `llm` package for quick use of an LLM like gpt-4o-mini
 
-The %code, %md, and %mdat magics grab cells from a notebook on the filesystem,
+The %code and %md magics grab cells from a notebook on the filesystem,
 defaulting to the most recently modified notebook in the latest ~/Trainer_XYZ folder.
 
 For help on the magics, add a trailing question mark. For example:
 
     %code?
     %md?
-    %mdat?
     %ai?
 
 Two additional magics are available for getting and setting the current
-path and/or file that %code, %md, and %mdat query. To get help on these, run:
+path and/or file that %code and %md query. To get help on these, run:
 
     %nbfile?
     %nbpath?

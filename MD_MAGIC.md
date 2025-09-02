@@ -8,8 +8,7 @@ Training participants need a way to copy Markdown cells from trainer notebooks d
 
 ### Current Magic Commands
 - %code (formerly %nb): Handles code cells (identified by execution_count)
-- %md: Handles markdown cells by sequential index
-- %mdat: Handles markdown cells by position relative to code cells
+- %md: Handles markdown cells with flexible syntax (by index or relative to code cells)
 - %nb: Kept as alias for %code for backward compatibility
 
 ### Challenges with Markdown Cells
@@ -87,22 +86,29 @@ Training participants need a way to copy Markdown cells from trainer notebooks d
 - Users need to count Markdown cells
 - Numbers change if trainer adds cells
 
-## Recommended Implementation
+## Implemented Solution
 
-Implement **two complementary approaches**:
+The `%md` command now supports **unified syntax** for both index-based and code-relative selection:
 
-### 1. Primary: Sequential Markdown Index (`%md`)
+### Markdown Index Syntax
 ```python
-%md 1        # Get 1st Markdown cell
-%md 3-5      # Get 3rd through 5th Markdown cells
-%md --list   # List all Markdown cells with previews
+%md m1        # Get 1st Markdown cell
+%md m3-m5     # Get 3rd through 5th Markdown cells
+%md m7-       # Get 7th cell onwards
+%md -m3       # Get cells 1 through 3
+%md --list    # List all Markdown cells with m-prefixed numbers
 ```
 
-### 2. Secondary: Position-Based Reference (`%mdat`)
+### Code-Relative Syntax (uses last occurrence if duplicates exist)
 ```python
-%mdat after:3   # Markdown cell(s) after code cell 3
-%mdat before:5  # Markdown cell(s) before code cell 5
-%mdat between:3:5  # All Markdown between code cells 3 and 5
+%md -3        # All Markdown cells before code cell 3
+%md 5-        # All Markdown cells after code cell 5
+%md 3-5       # All Markdown between code cells 3 and 5
+```
+
+### Combined Usage
+```python
+%md -1 m3 5-  # Before code 1, markdown cell 3, after code 5
 ```
 
 ## Implementation Details
@@ -150,11 +156,11 @@ Return both code and Markdown versions, let user choose.
 
 ## Migration Path
 
-1. Rename `%nb` to `%code` as the canonical command for code cells
-2. Keep `%nb` as an alias for backward compatibility
-3. Add `%md` for Markdown cells by index
-4. Add `%mdat` for position-based Markdown cell retrieval
-5. Document all commands in help text
+1. Renamed `%nb` to `%code` as the canonical command for code cells
+2. Kept `%nb` as an alias for backward compatibility  
+3. Implemented unified `%md` command with both index and position-based syntax
+4. Removed separate `%mdat` command (functionality merged into `%md`)
+5. Updated all documentation and help text
 
 ## Usage Examples
 
@@ -172,11 +178,12 @@ Return both code and Markdown versions, let user choose.
 ```python
 %code 1        # Get code cell 1 (preferred)
 %nb 1          # Same as %code 1 (backward compatibility)
-%md 1          # Get "# Data Analysis Workshop"
-%md 2-3        # Get "## Prerequisites" and "### Understanding the dataset"
-%mdat after:1  # Get markdown after code cell 1
+%md m1         # Get "# Data Analysis Workshop"
+%md m2-m3      # Get "## Prerequisites" and "### Understanding the dataset"
+%md 1-         # Get markdown after code cell 1
+%md -2         # Get markdown before code cell 2
 ```
 
 ## Conclusion
 
-The recommended approach balances usability with implementation simplicity. The sequential index method (`%md`) provides a familiar interface similar to `%nb`, while the position-based method (`%mdat`) offers precision when needed. Together, they cover all common use cases without requiring notebook modifications or complex UI changes.
+The unified `%md` command provides a powerful and flexible interface for selecting markdown cells. By supporting both index-based (`m1`, `m2-m5`) and code-relative (`-1`, `2-`, `3-5`) syntax in a single command, users have maximum flexibility without needing to remember multiple commands. The implementation handles edge cases like duplicate code cell numbers (using the last occurrence) and provides clear error messages for invalid selections.
