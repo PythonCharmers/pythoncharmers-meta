@@ -414,10 +414,16 @@ class NotebookMagic(Magics):
         Note: After running this magic, convert the cell to Markdown type
         using Ctrl+M, M (or Esc, M) in Jupyter.
         """
+        # Check for --list before parse_options
+        list_mode = "--list" in arg_s
+        if list_mode:
+            # Remove --list from arg_s before parsing options
+            arg_s = arg_s.replace("--list", "").strip()
+
         opts, args = self.parse_options(arg_s, "v:f:", mode="list")
 
         # Handle --list option
-        if "--list" in arg_s:
+        if list_mode:
             # Determine notebook file
             if "f" in opts:
                 fname = opts["f"]
@@ -476,9 +482,6 @@ class NotebookMagic(Magics):
                     )
 
         version = int(opts.get("v", 4))
-
-        # Remove --list from args if present
-        args = [arg for arg in args if arg != "--list"]
 
         if not args:
             raise UsageError(
