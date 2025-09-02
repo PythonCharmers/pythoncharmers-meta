@@ -37,6 +37,7 @@ path and/or file that %code and %md query. To get help on these, run:
 # Import version from package metadata (single source of truth)
 try:
     from importlib.metadata import version, PackageNotFoundError
+
     try:
         __version__ = version("pythoncharmers-meta")
     except PackageNotFoundError:
@@ -47,6 +48,7 @@ except ImportError:
     # Python < 3.8 fallback
     try:
         import pkg_resources
+
         __version__ = pkg_resources.get_distribution("pythoncharmers-meta").version
     except Exception:
         __version__ = "unknown"
@@ -58,6 +60,7 @@ from .nb_magic import NotebookMagic
 
 try:
     from .ai_magic import AIMagic
+
     __all__.append("AIMagic")
 except Exception as e:
     print(e)

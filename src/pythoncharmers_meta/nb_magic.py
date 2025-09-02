@@ -531,9 +531,6 @@ class NotebookMagic(Magics):
 
         Note: After running, convert the cell to Markdown with Esc M in Jupyter.
         """
-        # Store original arg_s for better error messages
-        original_arg_s = arg_s
-
         # Check for common mistakes (but not --list itself!)
         if "--list" not in arg_s and (
             "--lsit" in arg_s
@@ -542,9 +539,9 @@ class NotebookMagic(Magics):
             or "--lits" in arg_s
         ):
             raise UsageError(
-                f"Invalid option. Did you mean '--list'?\n"
-                f"Usage: %md --list  or  %md m1-m3  or  %md -1 2-\n"
-                f"See %md? for full documentation."
+                "Invalid option. Did you mean '--list'?\n"
+                "Usage: %md --list  or  %md m1-m3  or  %md -1 2-\n"
+                "See %md? for full documentation."
             )
 
         # Check if user is trying to use old %mdat syntax
@@ -736,7 +733,7 @@ class NotebookMagic(Magics):
                     if content_hash not in seen_content:
                         seen_content.add(content_hash)
                         contents.append(content)
-            except (ValueError, IndexError) as e:
+            except (ValueError, IndexError):
                 # Check if it's a markdown index that's out of range
                 if "m" in arg.lower():
                     all_markdown = get_markdown_cells(nb)
@@ -764,8 +761,8 @@ class NotebookMagic(Magics):
                 )
             else:
                 raise UsageError(
-                    f"No markdown cells found for the specified ranges.\n"
-                    f"Use '%md --list' to see available markdown cells."
+                    "No markdown cells found for the specified ranges.\n"
+                    "Use '%md --list' to see available markdown cells."
                 )
             return
 
