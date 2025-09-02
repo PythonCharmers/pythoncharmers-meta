@@ -106,7 +106,8 @@ Implement **two complementary approaches**:
 ## Implementation Details
 
 ### Cell Type Handling
-- Both magics should add a comment header: `# %md 1` or `# %mdat after:3`
+- Unlike %nb, the %md and %mdat magics do NOT add a comment header
+- Content is inserted directly without any prefix
 - Users manually convert cell type (Ctrl+M, M in Jupyter)
 - Future: Investigate IPython API for automatic cell type conversion
 

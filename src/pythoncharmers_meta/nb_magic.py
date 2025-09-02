@@ -266,7 +266,7 @@ class NotebookMagic(Magics):
             else:
                 my_notebook_file = latest_notebook_file(self.notebook_path)
                 print(
-                    f"No default notebook is set. Using the most recently modified file in %nbpath. This is currently {my_notebook_file}"
+                    f"No default notebook is set. Using the most recently modified file in %nbpath."
                 )
                 return str(my_notebook_file)
         elif "--reset" in arg_s:
@@ -412,7 +412,8 @@ class NotebookMagic(Magics):
           -v [notebook_version]: default is 4
 
         Note: After running this magic, convert the cell to Markdown type
-        using Ctrl+M, M (or Esc, M) in Jupyter.
+        using Ctrl+M, M (or Esc, M) in Jupyter. Unlike %nb, this command
+        does not add a comment line at the top.
         """
         # Check for --list before parse_options
         list_mode = "--list" in arg_s
@@ -507,10 +508,9 @@ class NotebookMagic(Magics):
             warnings.warn(f"No markdown cells found for indices: {cellnums}")
             return
 
-        # Join contents and add header comment
+        # Join contents without header comment for markdown
         contents = "\n\n".join(contents)
-        contents = "# %md {}\n".format(arg_s) + contents
-
+        
         self.shell.set_next_input(contents, replace=True)
 
     @line_magic
@@ -542,7 +542,8 @@ class NotebookMagic(Magics):
           -v [notebook_version]: default is 4
 
         Note: After running this magic, convert the cell to Markdown type
-        using Ctrl+M, M (or Esc, M) in Jupyter.
+        using Ctrl+M, M (or Esc, M) in Jupyter. Unlike %nb, this command
+        does not add a comment line at the top.
         """
         opts, args = self.parse_options(arg_s, "v:f:", mode="list")
 
@@ -619,10 +620,9 @@ class NotebookMagic(Magics):
             warnings.warn(f"No markdown cells found for position: {position_spec}")
             return
 
-        # Join contents and add header comment
+        # Join contents without header comment for markdown
         contents = "\n\n".join(contents)
-        contents = "# %mdat {}\n".format(arg_s) + contents
-
+        
         self.shell.set_next_input(contents, replace=True)
 
 
