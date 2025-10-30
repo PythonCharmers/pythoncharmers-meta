@@ -7300,6 +7300,7 @@ ml = [
     { name = "glum" },
     { name = "joblib" },
     { name = "pyod" },
+    { name = "readability" },
     { name = "scikit-learn" },
     { name = "skorch" },
     { name = "textdistance", extra = ["levenshtein"] },
@@ -7589,6 +7590,7 @@ requires-dist = [
     { name = "pytest-xdist", marker = "extra == 'testing'", specifier = ">=3.6.1" },
     { name = "pyzmq", marker = "extra == 'net'", specifier = ">=26.2.0" },
     { name = "rasterio", marker = "extra == 'gis'", specifier = ">=1.3.11" },
+    { name = "readability", marker = "extra == 'ml'", specifier = ">=0.3.2" },
     { name = "redis", marker = "extra == 'db'", specifier = ">=5.2.1" },
     { name = "redis", marker = "extra == 'net'", specifier = ">=5.2.1" },
     { name = "requests", specifier = ">=2.32.3" },
@@ -8005,6 +8007,12 @@ sdist = { url = "https://files.pythonhosted.org/packages/09/3d/6a32a149e494b9b3f
 wheels = [
     { url = "https://files.pythonhosted.org/packages/5e/0b/bd73621d2a5f87da97158c5c77a4bf31e27d60cf6bcc6ddea532043cc21d/rasterstats-0.20.0-py3-none-any.whl", hash = "sha256:a7015e99f42807842b8638d489157639ff0cbf8e35aac9647aa3e079982b18ee", size = 17280, upload-time = "2024-09-27T17:42:53.889Z" },
 ]
+
+[[package]]
+name = "readability"
+version = "0.3.2"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/6d/10/93cf95f579e43042b45d43c832aff7c55490ab1b38c6ce46f2f35245281f/readability-0.3.2.tar.gz", hash = "sha256:5aace888855cb3ef1b7dd059e41bbc6ac1f7daba321b2d24062ca75fdf6e576d", size = 36116, upload-time = "2025-01-14T13:55:02.702Z" }
 
 [[package]]
 name = "redis"
