@@ -1,6 +1,6 @@
 [project]
 name = "pythoncharmers-meta"
-version = "0.7.8"
+version = "0.7.9"
 description = "Meta package with dependencies for Python Charmers training courses"
 readme = "README.md"
 requires-python = ">=3.10"
@@ -78,11 +78,13 @@ gis = [
 ]
 ml = [
     "eli5>=0.15.0",
+    "formulaic>=1.1.1",
     "glum>=3.1.2",
     "joblib>=1.4.2",
     "pyod>=2.0.5",
     "readability>=0.3.2",
     "scikit-learn>=1.6.1",
+    "seaborn>=0.13.2",
     "skorch>=1.0.0",
     "textdistance[Levenshtein]>=4.6.3",
     "xgboost>=2.1.1",
@@ -204,6 +206,7 @@ dl = [
     "eli5>=0.15.0",
     "evaluate>=0.4.3",
     "joblib>=1.4.2",
+    "lightning>=2.5.6",
     "more-itertools>=10.5.0",
     "prophet>=1.1.6",
     "pyod>=2.0.5",
