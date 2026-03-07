@@ -1,6 +1,6 @@
 [project]
 name = "pythoncharmers-meta"
-version = "0.7.9"
+version = "0.7.10"
 description = "Meta package with dependencies for Python Charmers training courses"
 readme = "README.md"
 requires-python = ">=3.10"
@@ -88,7 +88,7 @@ ml = [
     "skorch>=1.0.0",
     "textdistance[Levenshtein]>=4.6.3",
     "xgboost>=2.1.1",
-    "yellowbrick>=1.5",
+    "yellowbrick @ git+https://github.com/PythonCharmers/yellowbrick.git@fixes",
 ]
 web = [
     "alembic>=1.13.2",
@@ -219,7 +219,7 @@ dl = [
     "torchvision>=0.17.2",
     "transformers[torch]>=4.49.0",
     "xgboost>=2.1.1",
-    "yellowbrick>=1.5",
+    "yellowbrick @ git+https://github.com/PythonCharmers/yellowbrick.git@fixes",
 ]
 testing = [
     "bandit>=1.8.3",
