@@ -38,10 +38,12 @@ dependencies = [
     "rich>=13.9.4",
     "ruff>=0.11.1",
     "schedule>=1.2.2",
+    # "sqlalchemy>=2.0.35",
     "streamlit>=1.45.0",
     "toolz>=0.12.1",
     "tqdm>=4.67.1",
-    # "sqlalchemy>=2.0.35",
+    "typer>=0.24.1",
+    "zstandard>=0.25.0"
 ]
 
 [project.optional-dependencies]
@@ -86,6 +88,7 @@ ml = [
     "scikit-learn>=1.6.1",
     "seaborn>=0.13.2",
     "skorch>=1.0.0",
+    "skrub>=0.7.2",
     "textdistance[Levenshtein]>=4.6.3",
     "xgboost>=2.1.1",
     "yellowbrick2 >= 2.0.1"
@@ -213,6 +216,7 @@ dl = [
     "pyod>=2.0.5",
     "scikit-learn>=1.6.1",
     "skorch>=1.0.0",
+    "skrub>=0.7.2",
     "tensorboard>=2.18.0",
     "textdistance[Levenshtein]>=4.6.3",
     "torch>=2.2.2",
