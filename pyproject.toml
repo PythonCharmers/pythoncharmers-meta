@@ -1,6 +1,6 @@
 [project]
 name = "pythoncharmers-meta"
-version = "0.7.15"
+version = "0.7.16"
 description = "Meta package with dependencies for Python Charmers training courses"
 readme = "README.md"
 requires-python = ">=3.10"
@@ -25,9 +25,10 @@ dependencies = [
     "nbformat>=5.10.4",
     "numba>=0.61.2",
     "numexpr>=2.10.1",
-    "numpy<2.3.0",
+    # "numpy<2.3.0",
+    "numpy>=2.2.0",
     "openpyxl>=3.1.5",
-    "pandas[aws,compression,computation,consortium-standard,excel,feather,fss,hdf5,html,output-formatting,parquet,plot,xml]>=2.2.3",
+    "pandas[aws,compression,computation,excel,feather,fss,hdf5,html,output-formatting,parquet,performance,plot,xml]>=2.2.3",
     "parse>=1.20.2",
     "plotly>=5.24.0,!=6.0.*",
     "polars[excel,graph,numpy,plot,pyarrow,pydantic,style,timezone]>=1.29.0",
@@ -288,6 +289,7 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [tool.uv]
+# When choosing dependency versions, require support for Intel Macs:
 required-environments = [
     "sys_platform == 'darwin' and platform_machine == 'x86_64'"
 ]

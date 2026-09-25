@@ -5985,6 +5985,11 @@ output-formatting = [
 parquet = [
     { name = "pyarrow" },
 ]
+performance = [
+    { name = "bottleneck" },
+    { name = "numba" },
+    { name = "numexpr" },
+]
 plot = [
     { name = "matplotlib" },
 ]
@@ -7556,7 +7561,7 @@ wheels = [
 
 [[package]]
 name = "pythoncharmers-meta"
-version = "0.7.15"
+version = "0.7.16"
 source = { editable = "." }
 dependencies = [
     { name = "black" },
@@ -7581,7 +7586,7 @@ dependencies = [
     { name = "numexpr" },
     { name = "numpy" },
     { name = "openpyxl" },
-    { name = "pandas", extra = ["aws", "compression", "computation", "consortium-standard", "excel", "feather", "fss", "hdf5", "html", "output-formatting", "parquet", "plot", "xml"] },
+    { name = "pandas", extra = ["aws", "compression", "computation", "excel", "feather", "fss", "hdf5", "html", "output-formatting", "parquet", "performance", "plot", "xml"] },
     { name = "parse" },
     { name = "plotly" },
     { name = "polars", extra = ["excel", "graph", "numpy", "plot", "pyarrow", "pydantic", "style", "timezone"] },
@@ -7971,11 +7976,11 @@ requires-dist = [
     { name = "numba", marker = "extra == 'analytics'", specifier = ">=0.61.0" },
     { name = "numba", marker = "extra == 'scieng'", specifier = ">=0.61.0" },
     { name = "numexpr", specifier = ">=2.10.1" },
-    { name = "numpy", specifier = "<2.3.0" },
+    { name = "numpy", specifier = ">=2.2.0" },
     { name = "openpyxl", specifier = ">=3.1.5" },
     { name = "pandas", extras = ["aws", "compression", "computation", "consortium-standard", "excel", "feather", "fss", "hdf5", "html", "output-formatting", "parquet", "plot", "spss", "xml"], marker = "extra == 'analytics'", specifier = ">=2.2.3" },
-    { name = "pandas", extras = ["aws", "compression", "computation", "consortium-standard", "excel", "feather", "fss", "hdf5", "html", "output-formatting", "parquet", "plot", "xml"], specifier = ">=2.2.3" },
     { name = "pandas", extras = ["aws", "compression", "computation", "consortium-standard", "excel", "feather", "fss", "hdf5", "html", "output-formatting", "parquet", "plot", "xml"], marker = "extra == 'scieng'", specifier = ">=2.2.3" },
+    { name = "pandas", extras = ["aws", "compression", "computation", "excel", "feather", "fss", "hdf5", "html", "output-formatting", "parquet", "performance", "plot", "xml"], specifier = ">=2.2.3" },
     { name = "pandas", extras = ["aws", "fss"], marker = "extra == 'net'", specifier = ">=2.2.3" },
     { name = "pandas", extras = ["sql-other"], marker = "extra == 'db'", specifier = ">=2.2.3" },
     { name = "pandera", extras = ["mypy", "pandas", "polars"], marker = "extra == 'analytics'", specifier = ">=0.24.0" },
